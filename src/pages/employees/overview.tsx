@@ -30,19 +30,19 @@ const EmployeesOverviewPage = () => {
           />
         </SectionTitleLineWithButton>
 
-        <NotificationBar color="info" icon={mdiMonitorCellphone}>
+        {/* <NotificationBar color="info" icon={mdiMonitorCellphone}>
           <b>Responsive table.</b> Collapses on mobile
-        </NotificationBar>
+        </NotificationBar> */}
 
         <CardBox className="mb-6" hasTable>
           <TableSampleClients />
         </CardBox>
 
-        <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" />
+        {/* <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" /> */}
 
-        <NotificationBar color="danger" icon={mdiTableOff}>
+        {/* <NotificationBar color="danger" icon={mdiTableOff}>
           <b>Empty card.</b> When there&apos;s nothing to show
-        </NotificationBar>
+        </NotificationBar> */}
 
         <CardBox>
           <CardBoxComponentEmpty />
