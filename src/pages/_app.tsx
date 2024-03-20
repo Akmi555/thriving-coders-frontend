@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <link rel="icon" href="/admin-one-react-tailwind/favicon.png" />
           </Head>
 
-          <Script
+          {/* <Script
             src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"
             strategy="afterInteractive"
           />
@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               gtag('js', new Date());
               gtag('config', 'UA-130795909-1');
             `}
-          </Script>
+          </Script> */}
 
           <Component {...pageProps} />
         </>
