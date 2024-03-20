@@ -21,6 +21,28 @@ const menuAside: MenuAsideItem[] = [
     label: 'Dashboard',
   },
   {
+    label: 'Employees',
+    icon: mdiViewList,
+    menu: [
+      {
+        href: '/employees/overview',
+        label: 'Overview',
+      },
+      {
+        href: '/employees/shifts',
+        label: 'Shifts',
+      },
+      {
+        href: '/employees/schedules',
+        label: 'Schedules',
+      },
+      {
+        href: '/employees/assessments',
+        label: 'Assessments',
+      },
+    ],
+  },
+  {
     href: '/tables',
     label: 'Tables',
     icon: mdiTable,
