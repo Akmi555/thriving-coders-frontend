@@ -1,5 +1,10 @@
 import {
+  mdiAccountCheck,
   mdiAccountCircle,
+  mdiAccountClock,
+  mdiAccountGroup,
+  mdiAccountStar,
+  mdiAccountMultipleOutline,
   mdiMonitor,
   mdiGithub,
   mdiLock,
@@ -22,23 +27,27 @@ const menuAside: MenuAsideItem[] = [
   },
   {
     label: 'Employees',
-    icon: mdiViewList,
+    icon: mdiAccountMultipleOutline,
     menu: [
       {
         href: '/employees/overview',
         label: 'Overview',
+        icon: mdiAccountGroup,
       },
       {
         href: '/employees/shifts',
         label: 'Shifts',
+        icon: mdiAccountClock,
       },
       {
         href: '/employees/schedules',
         label: 'Schedules',
+        icon: mdiAccountCheck,
       },
       {
         href: '/employees/assessments',
         label: 'Assessments',
+        icon: mdiAccountStar,
       },
     ],
   },

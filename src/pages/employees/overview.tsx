@@ -1,4 +1,4 @@
-import { mdiAccountPlus, mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from '@mdi/js'
+import { mdiAccountPlus, mdiMonitorCellphone, mdiAccountGroup , mdiTableOff } from '@mdi/js'
 import Head from 'next/head'
 import React, { ReactElement } from 'react'
 import Button from '../../components/Button'
@@ -18,7 +18,7 @@ const EmployeesOverviewPage = () => {
         <title>{getPageTitle('Employees overview')}</title>
       </Head>
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiTableBorder} title="Tables" main>
+        <SectionTitleLineWithButton icon={mdiAccountGroup } title="Employees overview" main>
           <Button
             href="#"
             // target="_blank"
