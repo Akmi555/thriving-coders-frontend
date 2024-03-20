@@ -1,4 +1,4 @@
-import { mdiGithub, mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from '@mdi/js'
+import { mdiAccountPlus, mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from '@mdi/js'
 import Head from 'next/head'
 import React, { ReactElement } from 'react'
 import Button from '../../components/Button'
@@ -15,15 +15,15 @@ const EmployeesOverviewPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Tables')}</title>
+        <title>{getPageTitle('Employees overview')}</title>
       </Head>
       <SectionMain>
         <SectionTitleLineWithButton icon={mdiTableBorder} title="Tables" main>
           <Button
-            href="https://github.com/justboil/admin-one-react-tailwind"
-            target="_blank"
-            icon={mdiGithub}
-            label="Star on GitHub"
+            href="#"
+            // target="_blank"
+            icon={mdiAccountPlus}
+            label="Add new employee"
             color="contrast"
             roundedFull
             small
