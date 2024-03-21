@@ -10,6 +10,7 @@ import SectionMain from '../../components/Section/Main'
 import SectionTitleLineWithButton from '../../components/Section/TitleLineWithButton'
 import TableSampleClients from '../../components/Table/SampleClients'
 import { getPageTitle } from '../../config'
+import EmployeesTable from '../../components/Table/EmployeesTable'
 
 const EmployeesOverviewPage = () => {
   return (
@@ -35,7 +36,8 @@ const EmployeesOverviewPage = () => {
         </NotificationBar> */}
 
         <CardBox className="mb-6" hasTable>
-          <TableSampleClients />
+          {/* <TableSampleClients /> */}
+          <EmployeesTable/>
         </CardBox>
 
         {/* <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" /> */}
