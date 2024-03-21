@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import { Formik, Form, Field } from 'formik'
-import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiMail } from '@mdi/js'
+import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiEmailOutline, mdiMail, mdiPhoneClassic } from '@mdi/js'
 
-import SectionMain from '../../../components/Section/Main'
-import Button from '../../../components/Button'
-import SectionTitleLineWithButton from '../../../components/Section/TitleLineWithButton'
+import SectionMain from 'components/Section/Main'
+import Button from 'components/Button'
+import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
 import { getPageTitle } from '../../../config'
-import CardBox from '../../../components/CardBox'
-import Buttons from '../../../components/Buttons'
-import Divider from '../../../components/Divider'
-import FormField from '../../../components/Form/Field'
+import CardBox from 'components/CardBox'
+import Buttons from 'components/Buttons'
+import Divider from 'components/Divider'
+import FormField from 'components/Form/Field'
 
 const AddNewEmployeePage = () => {
     return (
@@ -34,16 +34,18 @@ const AddNewEmployeePage = () => {
                 <CardBox>
                     <Formik
                         initialValues={{
-                            fullname: '',
+                            firstname: '',
+                            lastName: '',
                             email: '',
                             phone: '',
                             position: 'engineer',
+                            hourlyRate: '',
                             textarea: 'Hello',
                         }}
                         onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
                     >
                         <Form>
-                            <FormField label="Please insert first and last name" icons={[ mdiAccountOutline, mdiAccount ]}>
+                            <FormField label="Please insert first and last name" icons={[mdiAccountOutline, mdiAccount]}>
                                 <Field name="firstname" placeholder="Full name" />
                                 <Field name="lastName" placeholder="Last name" />
                             </FormField>
@@ -52,11 +54,12 @@ const AddNewEmployeePage = () => {
                                 label="Provide Your contact information"
                                 labelFor="contact"
                                 help="Phone numbers or email addresses"
+                                icons={[mdiPhoneClassic]}
                             >
                                 <Field name="contact" placeholder="Contact" id="contact" />
                             </FormField>
 
-                            <FormField label="Select position and hourly rate" labelFor="position">
+                            <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc ]}>
                                 <Field name="position" id="position" component="select">
                                     <option value="designer">Designer</option>
                                     <option value="assistant">Assistant</option>
