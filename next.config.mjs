@@ -1,18 +1,21 @@
+import path from 'path'
+
 /**
  * @type {import('next').NextConfig}
  */
  const nextConfig = {
-  basePath: "/admin-one-react-tailwind",
+  basePath: "/thriving-coders-dashboard",
   async redirects() {
     return [
       {
           source: '/',
-          destination: '/admin-one-react-tailwind',
+          destination: '/thriving-coders-dashboard',
           basePath: false,
           permanent: false
       }
     ]
   },
+
   images: {
     unoptimized: true,
     remotePatterns: [
