@@ -36,8 +36,8 @@ const EmployeesOverviewPage = () => {
         </NotificationBar> */}
 
         <CardBox className="mb-6" hasTable>
-          {/* <TableSampleClients /> */}
           <EmployeesTable/>
+          {/* <TableSampleClients /> */}
         </CardBox>
 
         {/* <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" /> */}
