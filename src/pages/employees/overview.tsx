@@ -21,7 +21,7 @@ const EmployeesOverviewPage = () => {
       <SectionMain>
         <SectionTitleLineWithButton icon={mdiAccountGroup } title="Employees overview" main>
           <Button
-            href="#"
+            href="/employees/add/employee"
             // target="_blank"
             icon={mdiAccountPlus}
             label="Add new employee"
