@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup';
 import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiEmailOutline, mdiMail, mdiPhoneClassic } from '@mdi/js'
 
 import SectionMain from 'components/Section/Main'
@@ -10,8 +11,26 @@ import CardBox from 'components/CardBox'
 import Buttons from 'components/Buttons'
 import Divider from 'components/Divider'
 import FormField from 'components/Form/Field'
+import { Employee } from 'interfaces/employee'
 
 const AddNewEmployeePage = () => {
+
+    const AddEmployeeValidationSchema = Yup.object().shape(
+        {
+            firstName: Yup.string()
+                .min(2, 'First name is too short!')
+                .max(50, 'First name is too long!')
+                .required('First name is required!'),
+            lastName: Yup.string()
+                .min(2, 'Last name is too short!')
+                .max(50, 'Last name is too long!')
+                .required('Last name is required!'),
+            contactInfo: Yup.string()
+                .min(5, 'Contact information too short!')
+                .required('Contact information required!')
+        }
+    );
+
     return (
         <>
             <Head>
@@ -34,54 +53,61 @@ const AddNewEmployeePage = () => {
                 <CardBox>
                     <Formik
                         initialValues={{
-                            firstname: '',
+                            firstName: '',
                             lastName: '',
-                            email: '',
-                            phone: '',
+                            contactInfo: '',
                             position: 'engineer',
-                            hourlyRate: '',
-                            textarea: 'Hello',
+                            hourlyRate: undefined,
                         }}
+                        validationSchema={AddEmployeeValidationSchema}
                         onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
                     >
-                        <Form>
-                            <FormField label="Please insert first and last name" icons={[mdiAccountOutline, mdiAccount]}>
-                                <Field name="firstname" placeholder="Full name" />
-                                <Field name="lastName" placeholder="Last name" />
-                            </FormField>
+                        {({ errors, touched }) => (
+                            <Form>
+                                <FormField label="Please insert First and Last name" icons={[mdiAccountOutline, mdiAccount]} 
+                                     errors={[
+                                        errors.firstName && touched.firstName ? errors.firstName : null,
+                                        errors.lastName && touched.lastName ? errors.lastName : null
+                                    ]}
+                                >
+                                    <Field name="firstName" placeholder="First name" />
+                                    <Field name="lastName" placeholder="Last name" />
+                                </FormField>
 
-                            <FormField
-                                label="Provide Your contact information"
-                                labelFor="contact"
-                                help="Phone numbers or email addresses"
-                                icons={[mdiPhoneClassic]}
-                            >
-                                <Field name="contact" placeholder="Contact" id="contact" />
-                            </FormField>
+                                <FormField
+                                    label="Provide Your contact information"
+                                    labelFor="contactInfo"
+                                    // help="Phone numbers or email addresses"
+                                    icons={[mdiPhoneClassic]}
+                                    errors={errors.contactInfo && touched.contactInfo ? [errors.contactInfo] : null}
+                                >
+                                    <Field name="contactInfo" placeholder="Contact information about new employee" id="contactInfo" />
+                                </FormField>
 
-                            <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc ]}>
-                                <Field name="position" id="position" component="select">
-                                    <option value="designer">Designer</option>
-                                    <option value="assistant">Assistant</option>
-                                    <option value="engineer">Engineer</option>
-                                    <option value="architect">Architect</option>
-                                </Field>
-                                <Field name="hourlyRate" placeholder="Hourly rate" />
-                            </FormField>
+                                <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc]}>
+                                    <Field name="position" id="position" component="select">
+                                        <option value="designer">Designer</option>
+                                        <option value="assistant">Assistant</option>
+                                        <option value="engineer">Engineer</option>
+                                        <option value="architect">Architect</option>
+                                    </Field>
+                                    <Field name="hourlyRate" placeholder="Hourly rate" />
+                                </FormField>
 
-                            <Divider />
+                                <Divider />
 
-                            <FormField label="Textarea" hasTextareaHeight>
+                                {/* <FormField label="Textarea" hasTextareaHeight>
                                 <Field name="textarea" as="textarea" placeholder="Your text here" />
                             </FormField>
 
-                            <Divider />
+                            <Divider /> */}
 
-                            <Buttons>
-                                <Button type="submit" color="info" label="Submit" />
-                                <Button type="reset" color="info" outline label="Reset" />
-                            </Buttons>
-                        </Form>
+                                <Buttons>
+                                    <Button type="submit" color="info" label="Submit" />
+                                    <Button type="reset" color="info" outline label="Reset" />
+                                </Buttons>
+                            </Form>
+                        )}
                     </Formik>
                 </CardBox>
 
