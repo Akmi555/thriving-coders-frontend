@@ -27,7 +27,14 @@ const AddNewEmployeePage = () => {
                 .required('Last name is required!'),
             contactInfo: Yup.string()
                 .min(5, 'Contact information too short!')
-                .required('Contact information required!')
+                .max(150, 'Contact information too long!')
+                .required('Contact information required!'),
+            position: Yup.string()
+                .required('Position is required!'),
+            hourlyRate: Yup.number()
+                .min(12, 'Hourly rate must be at least 12!')
+                .max(150, 'Hourly rate must not exceed 150!')
+                .required('Hourly rate is required!')
         }
     );
 
@@ -56,7 +63,7 @@ const AddNewEmployeePage = () => {
                             firstName: '',
                             lastName: '',
                             contactInfo: '',
-                            position: 'engineer',
+                            position: '',
                             hourlyRate: undefined,
                         }}
                         validationSchema={AddEmployeeValidationSchema}
@@ -64,8 +71,8 @@ const AddNewEmployeePage = () => {
                     >
                         {({ errors, touched }) => (
                             <Form>
-                                <FormField label="Please insert First and Last name" icons={[mdiAccountOutline, mdiAccount]} 
-                                     errors={[
+                                <FormField label="Please insert First and Last name" icons={[mdiAccountOutline, mdiAccount]}
+                                    errors={[
                                         errors.firstName && touched.firstName ? errors.firstName : null,
                                         errors.lastName && touched.lastName ? errors.lastName : null
                                     ]}
@@ -81,11 +88,16 @@ const AddNewEmployeePage = () => {
                                     icons={[mdiPhoneClassic]}
                                     errors={errors.contactInfo && touched.contactInfo ? [errors.contactInfo] : null}
                                 >
-                                    <Field name="contactInfo" placeholder="Contact information about new employee" id="contactInfo" />
+                                    <Field name="contactInfo" type="number" placeholder="Contact information about new employee" id="contactInfo" />
                                 </FormField>
 
-                                <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc]}>
+                                <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                                    errors={[
+                                        errors.position && touched.position ? errors.position : null,
+                                        errors.hourlyRate && touched.hourlyRate ? String(errors.hourlyRate) : null
+                                    ]}>
                                     <Field name="position" id="position" component="select">
+                                        <option value="">Please select position</option>
                                         <option value="designer">Designer</option>
                                         <option value="assistant">Assistant</option>
                                         <option value="engineer">Engineer</option>
