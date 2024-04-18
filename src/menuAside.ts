@@ -30,7 +30,7 @@ const menuAside: MenuAsideItem[] = [
     icon: mdiAccountMultipleOutline,
     menu: [
       {
-        href: '/employees/overview',
+        href: '/employees/',
         label: 'Overview',
         icon: mdiAccountGroup,
       },
