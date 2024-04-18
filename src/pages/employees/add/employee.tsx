@@ -27,6 +27,7 @@ const AddNewEmployeePage = () => {
                 .required('Last name is required!'),
             contactInfo: Yup.string()
                 .min(5, 'Contact information too short!')
+                .max(100, 'Contact information too long!')
                 .required('Contact information required!')
         }
     );
