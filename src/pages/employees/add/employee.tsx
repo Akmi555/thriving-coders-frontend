@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup';
-import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiEmailOutline, mdiMail, mdiPhoneClassic } from '@mdi/js'
-
+import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiPhoneClassic } from '@mdi/js'
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import SectionMain from 'components/Section/Main'
 import Button from 'components/Button'
 import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
@@ -11,9 +12,16 @@ import CardBox from 'components/CardBox'
 import Buttons from 'components/Buttons'
 import Divider from 'components/Divider'
 import FormField from 'components/Form/Field'
-import { Employee } from 'interfaces/employee'
+import Icon from 'components/Icon';
+import { Employee } from 'interfaces/employee';
+import { useState } from 'react';
+import addNewEmployee from './addNewEmployee';
+
+
 
 const AddNewEmployeePage = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const AddEmployeeValidationSchema = Yup.object().shape(
         {
@@ -31,6 +39,67 @@ const AddNewEmployeePage = () => {
         }
     );
 
+    const showLoadingToast = () => {
+        toast.info('Loading...', {
+            position: "bottom-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
+    };
+
+    const showSuccessToast = () => {
+        toast.success('New employee successfully added!', {
+            icon: <Icon path={mdiAccountPlus} size={48} />,
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light", // TODO correct theme, if dark mode on
+            transition: Bounce,
+        });
+    };
+
+    const showErrorToast = (errorMessage) => {
+        toast.error(errorMessage, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
+    };
+
+     const handleSubmit = async(employeeData: Employee) =>{    
+        try {
+            setLoading(true);
+            const response = await addNewEmployee(employeeData);             
+            if (response.status === 201) {
+                setLoading(false);
+                showSuccessToast();
+            } else {
+                // if another status
+            }
+        } catch (error) {
+            setLoading(false);
+            setError(error.message || 'An error occurred while adding employee');
+            showErrorToast(error.message || 'An error occurred while adding employee');
+        }
+
+    }
+
     return (
         <>
             <Head>
@@ -39,7 +108,7 @@ const AddNewEmployeePage = () => {
             <SectionMain>
                 <SectionTitleLineWithButton icon={mdiAccountPlus} title="Add new employee" main>
                     <Button
-                        href="/employees/overview"
+                        href="/employees/"
                         // target="_blank"
                         icon={mdiAccountMultipleOutline}
                         label="Back to employees overview"
@@ -56,16 +125,16 @@ const AddNewEmployeePage = () => {
                             firstName: '',
                             lastName: '',
                             contactInfo: '',
-                            position: 'engineer',
+                            position: '',
                             hourlyRate: undefined,
                         }}
                         validationSchema={AddEmployeeValidationSchema}
-                        onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
+                        onSubmit={async (employeeData) => handleSubmit(employeeData)}
                     >
                         {({ errors, touched }) => (
                             <Form>
-                                <FormField label="Please insert First and Last name" icons={[mdiAccountOutline, mdiAccount]} 
-                                     errors={[
+                                <FormField label="Please insert First and Last name" icons={[mdiAccountOutline, mdiAccount]}
+                                    errors={[
                                         errors.firstName && touched.firstName ? errors.firstName : null,
                                         errors.lastName && touched.lastName ? errors.lastName : null
                                     ]}
@@ -84,8 +153,13 @@ const AddNewEmployeePage = () => {
                                     <Field name="contactInfo" placeholder="Contact information about new employee" id="contactInfo" />
                                 </FormField>
 
-                                <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc]}>
+                                <FormField label="Select position and hourly rate" labelFor="position" icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                                    errors={[
+                                        errors.position && touched.position ? errors.position : null,
+                                        errors.hourlyRate && touched.hourlyRate ? String(errors.hourlyRate) : null
+                                    ]}>
                                     <Field name="position" id="position" component="select">
+                                        <option value="">Please select position</option>
                                         <option value="designer">Designer</option>
                                         <option value="assistant">Assistant</option>
                                         <option value="engineer">Engineer</option>
@@ -96,12 +170,6 @@ const AddNewEmployeePage = () => {
 
                                 <Divider />
 
-                                {/* <FormField label="Textarea" hasTextareaHeight>
-                                <Field name="textarea" as="textarea" placeholder="Your text here" />
-                            </FormField>
-
-                            <Divider /> */}
-
                                 <Buttons>
                                     <Button type="submit" color="info" label="Submit" />
                                     <Button type="reset" color="info" outline label="Reset" />
@@ -109,6 +177,9 @@ const AddNewEmployeePage = () => {
                             </Form>
                         )}
                     </Formik>
+
+                    <ToastContainer />
+
                 </CardBox>
 
             </SectionMain>
