@@ -17,6 +17,7 @@ import {
   mdiPalette,
   mdiVuejs,
   mdiCreditCardSettingsOutline,
+  mdiCarEstate,
 } from '@mdi/js'
 import { MenuAsideItem } from './interfaces'
 
@@ -30,6 +31,12 @@ const menuAside: MenuAsideItem[] = [
     href: '/paycard',
     icon: mdiCreditCardSettingsOutline,
     label: 'Paycard',
+  },
+
+  {
+    href: '/vehicles',
+    icon: mdiCarEstate,
+    label: 'Vehicles',
   },
   {
     label: 'Employees',
