@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import { Route } from 'next'
 import { mdiCarEstate } from '@mdi/js'
+import { mdiGasStation } from '@mdi/js';
+import { mdiPlus } from '@mdi/js';
+
 
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
@@ -27,21 +30,42 @@ import FormField from 'components/Form/Field'
 import { ReadableStreamDefaultController } from 'stream/web'
 
 const AddNewVehiclePage = () => {
-  const AddVehicleValidationSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'First name is too short!')//TODO change to veh
-      .max(50, 'First name is too long!')
-      .required('First name is required!'),
-    lastName: Yup.string()
-      .min(2, 'Last name is too short!')
-      .max(50, 'Last name is too long!')
-      .required('Last name is required!'),
-    contactInfo: Yup.string()
-      .min(5, 'Contact information too short!')
-      .required('Contact information required!'),
-  })
+  const AddVehicleValidationSchema = Yup.object().shape(
+    {
+        model: Yup.string()
+            .min(2, 'model is too short!')
+            .max(50, 'model is too long!')
+            .required('model is required!'),
+        weightCapacity: Yup.number()
+            .min(2, 'Last name is too short!')
+            .max(50, 'Last name is too long!')
+            .required('Last name is required!'),
+        fuelType: Yup.string()
+            .min(5, 'fuelType too short!')
+            .required('Contact information required!'),
+        rangeWithCargo:  Yup.number() 
+            .min(2,'Range is too  small')
+            .required('Range is required'),
+        rangeWithoutCargo:  Yup.number() 
+            .min(2,'Range is too  small')
+            .required('Range is required'),
+        fuelConsumptionWithCargo: Yup.number()
+            .min(2,'Range is too  small')
+            .required('Range is required'),
+        usefulArea: Yup.number()
+            .min(2,'usefulArea is too  small')
+            .required('usefulArea is required'),
+        costOfDelivery: Yup.number()    
+            .min(2,'Range is too  small')
+            .required('Range is required'),
+        status: Yup.string()  
+        .min(2,'statue is too  small')
+        .required('status is required'),
 
-     const getFuelType=async ()=>{
+    }
+);
+  
+    const getFuelType=async ()=>{
     const response =  await fetch("http://localhost:4567/vehicles/type/fuels")
     const result = response.json()
 
@@ -101,7 +125,7 @@ const AddNewVehiclePage = () => {
         <title>{getPageTitle('Add new vehicle')}</title>
       </Head>
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiAccountPlus} title="Add new vehicle" main>
+        <SectionTitleLineWithButton icon={mdiPlus} title="Add new vehicle" main>
           <Button
             href="/vehicles/"
             // target="_blank"
@@ -116,17 +140,15 @@ const AddNewVehiclePage = () => {
         <CardBox>
           <Formik
             initialValues={{
-              firstName: '',
-              lastName: '',
               model: '',
-              vehicleCapacity: '',
+              weightCapacity: '',
               fuelType: '',
-              rangeWithCargo: 0,
-              rangeWithoutCargo: 0,
-              fuelConsumptionWithCargo: 0,
-              usefulArea: 0.0,
-              costOfDelivery: 0.0,
-              contactInfo: '',
+              rangeWithCargo: '',
+              rangeWithOutCargo: '',
+              fuelConsumptionWithCargo: '',
+              usefulArea: '',
+              costOfDelivery: '',
+              state: '',
             }}
             
             validationSchema={AddVehicleValidationSchema}
@@ -137,51 +159,79 @@ const AddNewVehiclePage = () => {
             {({ errors, touched }) => (
               <Form>
                 <FormField
-                  label="Please insert First and Last name"
-                  icons={[mdiAccountOutline, mdiAccount]}
-                  errors={[
-                    errors.firstName && touched.firstName ? errors.firstName : null,
-                    errors.lastName && touched.lastName ? errors.lastName : null,
-                  ]}
+    
+                  label="Select vehicle's model and weight Capacity"
+                  labelFor="position" 
+                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
                 >
-                  <Field name="firstName" placeholder="First name" />
-                  <Field name="lastName" placeholder="Last name" />
-                  <Field name="name" placeholder=" name" />
-                </FormField>
-                <FormField
-                  label="Please insert vehicle's model"
-                  icons={[mdiAccountOutline, mdiAccount]}
-                  errors={[errors.model && touched.model ? errors.model : null]}
-                >
-                  <Field name="model" placeholder="modele" />
+                  <Field name="model" placeholder="model">
+                    {/*<option value="model">Electro</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="benzin">Benzin</option>
+                    <option value="architect">Hybrid</option>*/}
+                  </Field>
+                  <Field name="weight capacity" placeholder="weight capacity" />
                 </FormField>
 
+
+<FormField
+ label="Select vehicle's fuel Type"
+ labelFor="position" 
+ icons={[mdiGasStation]}
+>
+<Field name="fuelType" id="fuelType" component="select">
+                                        <option value="">Please select fuel Type</option>
+                                        <option value="electrical">Electrical</option>
+                                        <option value="gasoline">gasoline</option>
+                                        <option value="hybride">hybryde</option>
+                                        <option value="natural_gas">natural_gas</option>
+                                    </Field>
+ { /*<Field name="fuelType" id="fueltype" component="select">
+  <option value="">Please select fuel Type</option>
+  <option value="electro">Electro</option>
+  <option value="diesel">Diesel</option>
+  <option value="benzin">Benzin</option>
+  <option value="hybrid">Hybrid</option>
+  <option>value="natural_gas"</option>
+</Field>*/}
+</FormField>
                 <FormField
-                  label="Provide Your contact information"
-                  labelFor="contactInfo"
+                  label="range with Cargo and range without Cargo"
+                  labelFor="position"
                   // help="Phone numbers or email addresses"
-                  icons={[mdiPhoneClassic]}
+                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
                   errors={errors.contactInfo && touched.contactInfo ? [errors.contactInfo] : null}
                 >
                   <Field
-                    name="contactInfo"
-                    placeholder="Contact information about new employee"
-                    id="contactInfo"
+                    name="rangeWithCargo"
+                    placeholder="rangeWithCargo"
+                  />
+                   <Field
+                    name="rangeWithOutCargo"
+                    placeholder="rangeWithOutCargo"
                   />
                 </FormField>
-
                 <FormField
-                  label="Select position and hourly rate"
+                  label="fuel consumption with Cargo"
                   labelFor="position"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
                 >
-                  <Field name="position" id="position" component="select">
-                    <option value="electro">Electro</option>
+                  <Field name="fuelConsumptionWithCargo" placeholder="fuelConsumptionWithCargo" />
+                </FormField>
+
+                <FormField
+                  label="Select useful Area and cost of Delivery"
+                  labelFor="usefulArea"
+                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                >
+                  <Field id="usefulArea" name="usefulArea"placeholder="useful Area">
+                   {/* <option value="electro">Electro</option>
                     <option value="diesel">Diesel</option>
                     <option value="benzin">Benzin</option>
-                    <option value="architect">Hybrid</option>
+                    <option value="architect">Hybrid</option>*/}
                   </Field>
-                  <Field name="hourlyRate" placeholder="Hourly rate" />
+                
+                  <Field  name="Cost of Delivery" placeholder="Cost of Delivery" />
                 </FormField>
 
                 <Divider />
