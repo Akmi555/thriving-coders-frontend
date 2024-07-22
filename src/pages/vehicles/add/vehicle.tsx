@@ -26,7 +26,6 @@ import CardBox from 'components/CardBox'
 import Buttons from 'components/Buttons'
 import Divider from 'components/Divider'
 import FormField from 'components/Form/Field'
-import { ReadableStreamDefaultController } from 'stream/web'
 
 const AddNewVehiclePage = () => {
   const AddVehicleValidationSchema = Yup.object().shape({
@@ -35,18 +34,22 @@ const AddNewVehiclePage = () => {
       .max(50, 'model is too long!')
       .required('model is required!'),
     weightCapacity: Yup.number()
-      .min(2, 'Last name is too short!')
-      .max(50, 'Last name is too long!')
-      .required('Last name is required!'),
+      .required('Weight capacity is required!')
+      .min(2, 'Weight capacity must be at least 2!')
+      .max(200, 'Weight capacity must be 50 or less!')
+      .integer()
+      .typeError('Поле должно быть числом'),
+
+
     fuelType: Yup.string().min(5, 'fuelType too short!').required('Contact information required!'),
     rangeWithCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    rangeWithoutCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    fuelConsumptionWithCargo: Yup.number()
-      .min(2, 'Range is too  small')
-      .required('Range is required'),
-    usefulArea: Yup.number().min(2, 'usefulArea is too  small').required('usefulArea is required'),
-    costOfDelivery: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    status: Yup.string().min(2, 'statue is too  small').required('status is required'),
+    //rangeWithOutCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
+    //fuelConsumptionWithCargo: Yup.number()
+    //  .min(2, 'Range is too  small')
+    //  .required('Range is required'),
+    //usefulArea: Yup.number().min(2, 'usefulArea is too  small').required('usefulArea is required'),
+    //costOfDelivery: Yup.number().min(2, 'Range is too  small').required('Range is required'),
+    //status: Yup.string().min(2, 'statue is too  small').required('status is required'),
   })
 
   const getFuelType = async () => {
@@ -113,8 +116,6 @@ const AddNewVehiclePage = () => {
 
   return (
     <>
-      {' '}
-      <input type="button" onClick={fetchAllEmployees} value="Click me" />
       <Head>
         <title>{getPageTitle('Add new vehicle')}</title>
       </Head>
@@ -144,7 +145,7 @@ const AddNewVehiclePage = () => {
               costOfDelivery: '',
               state: '',
             }}
-            validationSchema={AddVehicleValidationSchema}
+            validationSchema = {AddVehicleValidationSchema}
             //onSubmit={async(vehicleData) => handleSubmit(vehicleData)}
             onSubmit={() => console.log('hello world++++++++++++++')}
           >
@@ -179,12 +180,12 @@ const AddNewVehiclePage = () => {
                   // help="Phone numbers or email addresses"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
                   errors={
-                    errors.rangeWithCargo && touched.rangeWithOutCargo
+                    errors.rangeWithCargo && touched.rangeWithCargo
                       ? [errors.rangeWithCargo]
                       : null
                   }
                 >
-                  <Field name="rangeWithCargo" placeholder="rangeWithCargo" />
+                  <Field name="rangeWithCargo" placeholder="rangeWithCargo+++" />
                   <Field name="rangeWithOutCargo" placeholder="rangeWithOutCargo" />
                 </FormField>
                 <FormField
