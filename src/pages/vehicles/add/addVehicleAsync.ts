@@ -11,7 +11,7 @@ export const addVehicleAsync = createAsyncThunk(
         try {
             const response = await addNewVehicle(newVehicle);
 
-            if(response.status === 201 ){
+            if(response.status === 200 ){
                 dispatch(addVehicle(newVehicle));
                 return { success: true, message: 'Vehicle added successfully!' };
               } else {

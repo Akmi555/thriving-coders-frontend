@@ -181,9 +181,10 @@ const AddNewVehiclePage = () => {
 >
 <Field name="fuelType" id="fuelType" component="select">
                                         <option value="">Please select fuel Type</option>
-                                        <option value="electrical">Electrical</option>
+                                        <option value="electric">Electric</option>
+                                        <option value="diesel">diesel</option>
                                         <option value="gasoline">gasoline</option>
-                                        <option value="hybride">hybryde</option>
+                                        <option value="hybrid">hybryde</option>
                                         <option value="natural_gas">natural_gas</option>
                                     </Field>
  { /*<Field name="fuelType" id="fueltype" component="select">
