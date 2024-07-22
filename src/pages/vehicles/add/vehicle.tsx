@@ -35,17 +35,17 @@ const AddNewVehiclePage = () => {
       .max(50, 'model is too long!')
       .required('model is required!'),
     weightCapacity: Yup.number()
-      .min(2, 'Last name is too short!')
-      .max(50, 'Last name is too long!')
-      .required('Last name is required!'),
-    fuelType: Yup.string().min(5, 'fuelType too short!').required('Contact information required!'),
-    rangeWithCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    rangeWithoutCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
+      .min(2, 'Weight capacity is too small')
+      .max(5000, 'Weight capacity is too big')
+      .required('Weight capacity is required!'),
+    fuelType: Yup.string().required('fuel type is required!'),
+    rangeWithCargo: Yup.number().min(10, 'Range with Cargo is too  small').required('Range is required'),
+    rangeWithoutCargo: Yup.number().min(10, 'Range is too  small').required('Range with Cargo is required'),
     fuelConsumptionWithCargo: Yup.number()
-      .min(2, 'Range is too  small')
-      .required('Range is required'),
-    usefulArea: Yup.number().min(2, 'usefulArea is too  small').required('usefulArea is required'),
-    costOfDelivery: Yup.number().min(2, 'Range is too  small').required('Range is required'),
+      .min(10, 'Fuel consumption with Cargo is too  small')
+      .required('Fuel consumption with Cargo is required'),
+    usefulArea: Yup.number().min(10, 'usefulArea is too  small').required('usefulArea is required'),
+    costOfDelivery: Yup.number().min(2, 'cost Of Delivery is too  small').required('Range is required'),
     status: Yup.string().min(2, 'statue is too  small').required('status is required'),
   })
 
@@ -152,8 +152,18 @@ const AddNewVehiclePage = () => {
               <Form>
                 <FormField
                   label="Select vehicle's model and weight Capacity"
-                  labelFor="position"
+                  labelFor="model"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                  errors={
+                    errors.model && touched.model
+                      ? [errors.model]
+                      : null
+                  }
+                  errors={
+                    errors.weightCapacity && touched.weightCapacity
+                      ? [errors.weightCapacity]
+                      : null
+                  }
                 >
                   <Field name="model" placeholder="model"></Field>
                   <Field name="weightCapacity" placeholder="weight capacity" />
@@ -161,16 +171,16 @@ const AddNewVehiclePage = () => {
 
                 <FormField
                   label="Select vehicle's fuel Type"
-                  labelFor="position"
+                  labelFor="fuelType"
                   icons={[mdiGasStation]}
                 >
                   <Field name="fuelType" id="fuelType" component="select">
                     <option value="">Please select fuel Type</option>
                     <option value="electric">Electric</option>
-                    <option value="diesel">diesel</option>
-                    <option value="gasoline">gasoline</option>
-                    <option value="hybrid">hybryde</option>
-                    <option value="natural_gas">natural_gas</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="gasoline">Gasoline</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="natural_gas">Natural_gas</option>
                   </Field>
                 </FormField>
                 <FormField
@@ -179,18 +189,30 @@ const AddNewVehiclePage = () => {
                   // help="Phone numbers or email addresses"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
                   errors={
-                    errors.rangeWithCargo && touched.rangeWithOutCargo
+                    errors.rangeWithCargo && touched.rangeWithCargo
                       ? [errors.rangeWithCargo]
                       : null
                   }
+                  errors={
+                    errors.rangeWithOutCargo && touched.rangeWithOutCargo
+                      ? [errors.rangeWithOutCargo]
+                      : null
+                  }
+
                 >
                   <Field name="rangeWithCargo" placeholder="rangeWithCargo" />
+               
                   <Field name="rangeWithOutCargo" placeholder="rangeWithOutCargo" />
                 </FormField>
                 <FormField
                   label="fuel consumption with Cargo"
-                  labelFor="position"
+                  labelFor="fuelConsumptionWithCargo"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                  errors={
+                    errors.fuelConsumptionWithCargo && touched.fuelConsumptionWithCargo
+                      ? [errors.fuelConsumptionWithCargo]
+                      : null
+                  }
                 >
                   <Field name="fuelConsumptionWithCargo" placeholder="fuelConsumptionWithCargo" />
                 </FormField>
@@ -199,11 +221,22 @@ const AddNewVehiclePage = () => {
                   label="Select useful Area and cost of Delivery"
                   labelFor="usefulArea"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
+                  errors={
+                    errors.usefulArea && touched.usefulArea
+                      ? [errors.usefulArea]
+                      : null
+                  }
+                   errors={
+                    errors.usefulArea && touched.usefulArea
+                      ? [errors.usefulArea]
+                      : null
+                    }     
                 >
                   <Field id="usefulArea" name="usefulArea" placeholder="useful Area">
                     {/* <option value="electro">Electro</option>
                     <option value="diesel">Diesel</option>
                     <option value="benzin">Benzin</option>
+
                     <option value="architect">Hybrid</option>*/}
                   </Field>
 
