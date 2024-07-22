@@ -6,7 +6,7 @@ import { addVehicle } from "src/stores/vehiclesSlice";
 
 /// NOT IN USE !!!
 export const addVehicleAsync = createAsyncThunk(
-    'vehicless/add/addVehicleAsync',
+    'vehicles/add/addVehicleAsync',
     async(newVehicle: Vehicle, {dispatch}) =>{
         try {
             const response = await addNewVehicle(newVehicle);

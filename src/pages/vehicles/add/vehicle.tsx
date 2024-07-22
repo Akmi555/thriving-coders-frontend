@@ -197,10 +197,10 @@ const AddNewVehiclePage = () => {
 </FormField>
                 <FormField
                   label="range with Cargo and range without Cargo"
-                  labelFor="position"
+                  labelFor="rangeWithCargo"
                   // help="Phone numbers or email addresses"
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
-                  errors={errors.contactInfo && touched.contactInfo ? [errors.contactInfo] : null}
+                  errors={errors.rangeWithCargo && touched.rangeWithOutCargo ? [errors.rangeWithCargo] : null}
                 >
                   <Field
                     name="rangeWithCargo"
