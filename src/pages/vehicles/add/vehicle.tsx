@@ -165,10 +165,7 @@ const AddNewVehiclePage = () => {
                   icons={[mdiAccountSettings, mdiCurrencyBtc]}
                 >
                   <Field name="model" placeholder="model">
-                    {/*<option value="model">Electro</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="benzin">Benzin</option>
-                    <option value="architect">Hybrid</option>*/}
+                    
                   </Field>
                   <Field name="weight capacity" placeholder="weight capacity" />
                 </FormField>
@@ -187,14 +184,7 @@ const AddNewVehiclePage = () => {
                                         <option value="hybrid">hybryde</option>
                                         <option value="natural_gas">natural_gas</option>
                                     </Field>
- { /*<Field name="fuelType" id="fueltype" component="select">
-  <option value="">Please select fuel Type</option>
-  <option value="electro">Electro</option>
-  <option value="diesel">Diesel</option>
-  <option value="benzin">Benzin</option>
-  <option value="hybrid">Hybrid</option>
-  <option>value="natural_gas"</option>
-</Field>*/}
+
 </FormField>
                 <FormField
                   label="range with Cargo and range without Cargo"

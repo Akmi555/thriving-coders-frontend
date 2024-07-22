@@ -5,12 +5,12 @@ import { Vehicle } from 'interfaces/vehicles'
 /// NOT IN USE !!!
 
 interface VehiclesState {
-    vehicles: Vehicles[];
+    vehicles: Vehicle[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: VehicleState = {
+const initialState: VehiclesState = {
     vehicles: [],
     loading: false,
     error: null,
@@ -26,14 +26,14 @@ export const vehiclesSlice = createSlice({
         },
         fetchVehiclesSuccess: (state, action: PayloadAction<Vehicle[]>) => {
             state.loading = false;
-            state.vehiclesSlice = action.payload;
+            state.vehicles = action.payload;
         },
         fetchVehiclesFailure: (state, action: PayloadAction<string>) => {
             state.loading = false;
             state.error = action.payload;
         },
         addVehicle: (state, action: PayloadAction<Vehicle>) => {
-            state.fetchVehiclesStart.push(action.payload);
+            state.vehicles.push(action.payload);
         },
     }
 });
