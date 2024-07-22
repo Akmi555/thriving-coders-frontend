@@ -129,7 +129,8 @@ const AddNewEmployeePage = () => {
                             hourlyRate: undefined,
                         }}
                         validationSchema={AddEmployeeValidationSchema}
-                        onSubmit={async (employeeData) => handleSubmit(employeeData)}
+                        //onSubmit={async (employeeData) => handleSubmit(employeeData)}
+                        onSubmit={()=>console.log("hello world++++++++++++++")}   
                     >
                         {({ errors, touched }) => (
                             <Form>
