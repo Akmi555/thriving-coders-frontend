@@ -1,4 +1,4 @@
-import { mdiCar2Plus, mdiGithub, mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from '@mdi/js'
+import { mdiCar2Plus, mdiGithub, mdiMonitorCellphone, mdiPlus, mdiTableBorder, mdiTableOff } from '@mdi/js'
 import Head from 'next/head'
 import React, { ReactElement } from 'react'
 import Button from '../../components/Button'
@@ -24,7 +24,7 @@ const VehiclesPage: React.FC=()=>{
                 <SectionTitleLineWithButton icon={mdiTableBorder} title="Vehicles" main>
                   <Button
                     href="/vehicles/add/vehicle"
-                    icon={mdiCar2Plus}
+                    icon={mdiPlus}
                     label="Add vehicle"
                     color="contrast"
                     roundedFull
