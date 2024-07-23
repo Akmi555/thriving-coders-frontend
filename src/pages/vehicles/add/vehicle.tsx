@@ -27,11 +27,12 @@ import { UserForm } from 'interfaces/index'
 import { getPageTitle } from 'src/config'
 import { title } from 'process'
 import LayoutAuthenticated from 'src/layouts/Authenticated'
+import ProfilePage from 'src/pages/profile'
 //import type { UserForm } from 'interfaces'
 //import { getPageTitle } from 'config'
 //import { useAppSelector } from 'stores/hooks'
 
-const ProfilePage = () => {
+const ProflePage = () =>  {
   const userName = useAppSelector((state) => state.main.userName)
   const userEmail = useAppSelector((state) => state.main.userEmail)
  { /*const AddVehicleValidationSchema = Yup.object().shape({
@@ -72,7 +73,7 @@ const ProfilePage = () => {
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiAccount} title="Vehicle" main>
+       <SectionTitleLineWithButton icon={mdiAccount} title="Vehicle" main>
           <Button
             href="https://github.com/justboil/admin-one-react-tailwind"
             target="_blank"
@@ -150,10 +151,10 @@ const ProfilePage = () => {
                     </FormField>
                   </CardBoxComponentBody>                 
                   <CardBoxComponentFooter>
-                    <Buttons>
+                   {/* <Buttons>
                       <Button color="info" type="submit" label="Submit" />
                       <Button color="info" label="Options" outline />
-                    </Buttons>
+                    </Buttons>*/}
                   </CardBoxComponentFooter>
                 </Form>
               </Formik>
@@ -163,10 +164,14 @@ const ProfilePage = () => {
           <CardBox hasComponentLayout>
             <Formik
               initialValues={{
-                model: '',
+              model: '',
               weightCapacity: '',
               fuelType: '',
               rangeWithCargo: '',
+              rangeWithOutCargo: '',
+              fuelConsumptionWithCargo: '',
+              usefulArea: '',
+              costOfDelivery: '',
               }}
               onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
             >
@@ -234,3 +239,4 @@ ProfilePage.getLayout = function getLayout(page: ReactElement) {
 }
 
 export default ProfilePage
+//export default AddNewVehiclePage
