@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/pages/vehicles/add/vehicle.tsx_old"  ],
   "exclude": [
     "node_modules"
   ]

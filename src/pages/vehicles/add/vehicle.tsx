@@ -1,290 +1,211 @@
-import Head from 'next/head'
-import { Route } from 'next'
-import { mdiCarEstate } from '@mdi/js'
-import { mdiGasStation } from '@mdi/js'
-import { mdiPlus } from '@mdi/js'
-
-import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
 import {
   mdiAccount,
-  mdiAccountMultipleOutline,
-  mdiAccountOutline,
-  mdiAccountPlus,
-  mdiAccountSettings,
-  mdiCurrencyBtc,
-  mdiEmailOutline,
+  mdiAsterisk,
+  mdiFormTextboxPassword,
+  mdiGasStation,
+  mdiGithub,
   mdiMail,
-  mdiPhoneClassic,
+  mdiUpload,
 } from '@mdi/js'
-
-import SectionMain from 'components/Section/Main'
+import { Formik, Form, Field } from 'formik'
+import Head from 'next/head'
+import type { ReactElement } from 'react'
 import Button from 'components/Button'
-import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
-import { getPageTitle } from '../../../config'
-import CardBox from 'components/CardBox'
 import Buttons from 'components/Buttons'
 import Divider from 'components/Divider'
+import CardBox from 'components/CardBox'
+import CardBoxComponentBody from 'components/CardBox/Component/Body'
+import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
 import FormField from 'components/Form/Field'
+import FormFilePicker from 'components/Form/FilePicker'
+//import LayoutAuthenticated from 'layouts/Authenticated'
+import SectionMain from 'components/Section/Main'
+import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
+import CardBoxUser from 'components/CardBox/User'
+import { useAppSelector } from 'src/stores/hooks'
+import { UserForm } from 'interfaces/index'
+import { getPageTitle } from 'src/config'
+import { title } from 'process'
+import LayoutAuthenticated from 'src/layouts/Authenticated'
+//import type { UserForm } from 'interfaces'
+//import { getPageTitle } from 'config'
+//import { useAppSelector } from 'stores/hooks'
 
-const AddNewVehiclePage = () => {
-  const AddVehicleValidationSchema = Yup.object().shape({
-    model: Yup.string()
-      .min(2, 'model is too short!')
-      .max(50, 'model is too long!')
-      .required('model is required!'),
-    weightCapacity: Yup.number()
-<<<<<<< HEAD
-      .min(2, 'Weight capacity is too small')
-      .max(5000, 'Weight capacity is too big')
-      .required('Weight capacity is required!'),
-    fuelType: Yup.string().required('fuel type is required!'),
-    rangeWithCargo: Yup.number().min(10, 'Range with Cargo is too  small').required('Range is required'),
-    rangeWithoutCargo: Yup.number().min(10, 'Range is too  small').required('Range with Cargo is required'),
-    fuelConsumptionWithCargo: Yup.number()
-      .min(10, 'Fuel consumption with Cargo is too  small')
-      .required('Fuel consumption with Cargo is required'),
-    usefulArea: Yup.number().min(10, 'usefulArea is too  small').required('usefulArea is required'),
-    costOfDelivery: Yup.number().min(2, 'cost Of Delivery is too  small').required('Range is required'),
-    status: Yup.string().min(2, 'statue is too  small').required('status is required'),
-=======
-      .required('Weight capacity is required!')
-      .min(2, 'Weight capacity must be at least 2!')
-      .max(200, 'Weight capacity must be 50 or less!')
-      .integer()
-      .typeError('Поле должно быть числом'),
+const ProfilePage = () => {
+  const userName = useAppSelector((state) => state.main.userName)
+  const userEmail = useAppSelector((state) => state.main.userEmail)
 
-
-    fuelType: Yup.string().min(5, 'fuelType too short!').required('Contact information required!'),
-    rangeWithCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    //rangeWithOutCargo: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    //fuelConsumptionWithCargo: Yup.number()
-    //  .min(2, 'Range is too  small')
-    //  .required('Range is required'),
-    //usefulArea: Yup.number().min(2, 'usefulArea is too  small').required('usefulArea is required'),
-    //costOfDelivery: Yup.number().min(2, 'Range is too  small').required('Range is required'),
-    //status: Yup.string().min(2, 'statue is too  small').required('status is required'),
->>>>>>> 6709d289b291880a76b0437784a1fc3eb08def01
-  })
-
-  const getFuelType = async () => {
-    const response = await fetch('http://localhost:4567/vehicles/type/fuels')
-    const result = response.json()
-
-    console.log('Result=' + result)
+  const userForm: UserForm = {
+    name: userName,
+    email: userEmail,
   }
-
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const fetchAllEmployees = async () => {
-    try {
-      const response = await fetcher('http://localhost:4567/vehicles/type/fuels')
-      console.log(response)
-      // return {
-      //     employees: response ?? [],
-      //     isLoading: false,
-      //     isError: false,
-      // // };
-    } catch (error) {
-      // return {
-      //     employees: [],
-      //     isLoading: false,
-      //     isError: true,
-      // };
-    }
-  }
-
-  const handleSubmit = () => {
-    console.log('hello world')
-  }
-  {
-    /*function handleSubmit(vehicleData: { model: string; weightCapacity: string; fuelType: string; rangeWithCargo: string; rangeWithOutCargo: string; fuelConsumptionWithCargo: string; usefulArea: string; costOfDelivery: string; state: string; }) {
-    console.log("hello world");
-    throw new Error('Function not implemented.');
-  }*/
-  }
-
-  //   const response = await fetch("http://localhost:4567/vehicles/type/fuels")
-  //   const result = await response.json()
-
-  //   if (!response.ok) {
-  //     rejectWithValue(result)
-  //   } else {
-  //     return result
-  //   }
-  // },
-  // {
-  //   pending: (state: RandomUserState) => {
-  //     state.error = undefined
-  //     state.isLoading = true
-  //   },
-  //   fulfilled: (state: RandomUserState, action: PayloadAction<any>) => {
-  //     state.isLoading = false
-  //     state.data = action.payload.results[0]
-  //   },
-  //   rejected: (state: RandomUserState, action: PayloadAction<any>) => {
-  //     state.isLoading = false
-  //     state.error = action.payload
-  //   },
-  // },
-  // ),
-  // }),
 
   return (
     <>
       <Head>
-        <title>{getPageTitle('Add new vehicle')}</title>
+        <title>{getPageTitle('Vehicle')}</title>
       </Head>
+
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiPlus} title="Add new vehicle" main>
+        <SectionTitleLineWithButton icon={mdiAccount} title="Vehicle" main>
           <Button
-            href="/vehicles/"
-            // target="_blank"
-            icon={mdiAccountMultipleOutline}
-            label="Back to vehicle overview"
+            href="https://github.com/justboil/admin-one-react-tailwind"
+            target="_blank"
+            icon={mdiGithub}
+            label="Star on GitHub"
             color="contrast"
             roundedFull
             small
           />
         </SectionTitleLineWithButton>
 
-        <CardBox>
-          <Formik
-            initialValues={{
-              model: '',
+        <CardBoxUser className="mb-6" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            {/*<CardBox className="mb-6">
+                <FormField label="Avatar" help="Max 500kb">
+                  <FormFilePicker label="Upload" color="info" icon={mdiUpload} />
+                </FormField>
+              </CardBox>*/}
+
+            <CardBox className="flex-1" hasComponentLayout>
+              <Formik
+                initialValues={userForm}
+                onSubmit={(values: UserForm) => alert(JSON.stringify(values, null, 2))}
+              >
+                <Form className="flex flex-col flex-1">
+                  <CardBoxComponentBody>
+                    <FormField
+                      label="Model"
+                      help="Required. Insert vehicle's model"
+                      labelFor="model"
+                      icons={[mdiAccount]}
+                    >
+                      <Field name="model" id="model" placeholder="Model" />
+                    </FormField>
+                    <FormField
+                      label="Weight Capacity"
+                      help="Required. Insert Weight Capacity"
+                      labelFor="weightCapacity"
+                      icons={[mdiMail]}
+                    >
+                      <Field
+                        name="weightCapacity"
+                        id="weightCapacity"
+                        placeholder="weightCapacity"
+                      />
+                    </FormField>
+                    <FormField
+                      label="Fuel Type"
+                      help="Required. Fuel Type"
+                      labelFor="fuelType"
+                      icons={[mdiGasStation]}
+                    >
+                      <Field
+                        name="fuelType"
+                        id="fuelType"
+                        placeholder="FuelType"
+                        component="select"
+                      />
+                      {/*<option value="">Please select fuel Type</option>
+                      <option value="electric">Electric</option>
+                      <option value="diesel">Diesel</option>
+                      <option value="gasoline">Gasoline</option>
+                      <option value="hybrid">Hybrid</option>
+                      <option value="natural_gas">Natural_gas</option>*/}
+                    </FormField>
+                    <FormField
+                      label="Range with Cargo"
+                      help="Required. Range with Cargo"
+                      labelFor="rangeWithCargo"
+                      icons={[mdiMail]}
+                    >
+                      <Field name="rangeWithCargo" id="rangeWithCargo" placeholder="rageWithCargo" />
+                    </FormField>
+                  </CardBoxComponentBody>                 
+                  <CardBoxComponentFooter>
+                    <Buttons>
+                      <Button color="info" type="submit" label="Submit" />
+                      <Button color="info" label="Options" outline />
+                    </Buttons>
+                  </CardBoxComponentFooter>
+                </Form>
+              </Formik>
+            </CardBox>
+          </div>
+
+          <CardBox hasComponentLayout>
+            <Formik
+              initialValues={{
+                model: '',
               weightCapacity: '',
               fuelType: '',
               rangeWithCargo: '',
-              rangeWithOutCargo: '',
-              fuelConsumptionWithCargo: '',
-              usefulArea: '',
-              costOfDelivery: '',
-              state: '',
-            }}
-            validationSchema = {AddVehicleValidationSchema}
-            //onSubmit={async(vehicleData) => handleSubmit(vehicleData)}
-            onSubmit={() => console.log('hello world++++++++++++++')}
-          >
-            {({ errors, touched }) => (
-              <Form>
+              }}
+              onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
+            >
+              <Form className="flex flex-col flex-1">
+                <CardBoxComponentBody>
                 <FormField
-                  label="Select vehicle's model and weight Capacity"
-                  labelFor="model"
-                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
-                  errors={
-                    errors.model && touched.model
-                      ? [errors.model]
-                      : null
-                  }
-                  errors={
-                    errors.weightCapacity && touched.weightCapacity
-                      ? [errors.weightCapacity]
-                      : null
-                  }
-                >
-                  <Field name="model" placeholder="model"></Field>
-                  <Field name="weightCapacity" placeholder="weight capacity" />
-                </FormField>
+                      label="Range without Cargo"
+                      help="Required. Range without Cargo"
+                      labelFor="rangeWithOutCargo"
+                      icons={[mdiAccount]}
+                    >
+                      <Field name="rangeWithOutCargo" id="rangeWithOutCargo" placeholder="Range without Cargo" />
+                    </FormField>
+                    <FormField
+                      label="Fuel Consumption with Cargo"
+                      help="Required. Fuel Consumption with Cargo"
+                      labelFor="fuelConsumpltionWithCargo"
+                      icons={[mdiMail]}
+                    >
+                      <Field
+                        name="fuelConsumpltionWithCargo"
+                        id="fuelConsumpltionWithCargo"
+                        placeholder="fuelConsumpltionWithCargo"
+                      />
+                    </FormField>
+                    <FormField
+                      label="Useful area"
+                      help="Required. Useful area"
+                      labelFor="usefulArea"
+                      icons={[mdiGasStation]}
+                    >
+                      <Field
+                        name="usefulArea"
+                        id="fusefulArea"
+                        placeholder="usefulArea"
+                      />
+                    </FormField>
+                    <FormField
+                      label="Cost of delivery"
+                      help="Required. Cost of delivery"
+                      labelFor="costOfDelivery"
+                      icons={[mdiMail]}
+                    >
+                      <Field name="costOfDelivery" id="costOfDelivery" placeholder="costOfDelivery" />
+                    </FormField>
+                </CardBoxComponentBody>
 
-                <FormField
-                  label="Select vehicle's fuel Type"
-                  labelFor="fuelType"
-                  icons={[mdiGasStation]}
-                >
-                  <Field name="fuelType" id="fuelType" component="select">
-                    <option value="">Please select fuel Type</option>
-                    <option value="electric">Electric</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="gasoline">Gasoline</option>
-                    <option value="hybrid">Hybrid</option>
-                    <option value="natural_gas">Natural_gas</option>
-                  </Field>
-                </FormField>
-                <FormField
-                  label="range with Cargo and range without Cargo"
-                  labelFor="rangeWithCargo"
-                  // help="Phone numbers or email addresses"
-                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
-                  errors={
-                    errors.rangeWithCargo && touched.rangeWithCargo
-                      ? [errors.rangeWithCargo]
-                      : null
-                  }
-                  errors={
-                    errors.rangeWithOutCargo && touched.rangeWithOutCargo
-                      ? [errors.rangeWithOutCargo]
-                      : null
-                  }
-
-                >
-<<<<<<< HEAD
-                  <Field name="rangeWithCargo" placeholder="rangeWithCargo" />
-               
-=======
-                  <Field name="rangeWithCargo" placeholder="rangeWithCargo+++" />
->>>>>>> 6709d289b291880a76b0437784a1fc3eb08def01
-                  <Field name="rangeWithOutCargo" placeholder="rangeWithOutCargo" />
-                </FormField>
-                <FormField
-                  label="fuel consumption with Cargo"
-                  labelFor="fuelConsumptionWithCargo"
-                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
-                  errors={
-                    errors.fuelConsumptionWithCargo && touched.fuelConsumptionWithCargo
-                      ? [errors.fuelConsumptionWithCargo]
-                      : null
-                  }
-                >
-                  <Field name="fuelConsumptionWithCargo" placeholder="fuelConsumptionWithCargo" />
-                </FormField>
-
-                <FormField
-                  label="Select useful Area and cost of Delivery"
-                  labelFor="usefulArea"
-                  icons={[mdiAccountSettings, mdiCurrencyBtc]}
-                  errors={
-                    errors.usefulArea && touched.usefulArea
-                      ? [errors.usefulArea]
-                      : null
-                  }
-                   errors={
-                    errors.usefulArea && touched.usefulArea
-                      ? [errors.usefulArea]
-                      : null
-                    }     
-                >
-                  <Field id="usefulArea" name="usefulArea" placeholder="useful Area">
-                    {/* <option value="electro">Electro</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="benzin">Benzin</option>
-
-                    <option value="architect">Hybrid</option>*/}
-                  </Field>
-
-                  <Field name="costOfDelivery" placeholder="Cost of Delivery" />
-                </FormField>
-
-                <Divider />
-
-                {/* <FormField label="Textarea" hasTextareaHeight>
-                                <Field name="textarea" as="textarea" placeholder="Your text here" />
-                            </FormField>
-
-                            <Divider /> */}
-
-                <Buttons>
-                  <Button type="submit" color="info" label="Submit" />
-                  <Button type="reset" color="info" outline label="Reset" />
-                </Buttons>
+                <CardBoxComponentFooter>
+                  <Buttons>
+                    <Button color="info" type="submit" label="Submit" />
+                    <Button color="info" label="Options" outline />
+                  </Buttons>
+                </CardBoxComponentFooter>
               </Form>
-            )}
-          </Formik>
-        </CardBox>
+            </Formik>
+          </CardBox>
+        </div>
       </SectionMain>
     </>
   )
 }
 
-export default AddNewVehiclePage
-function rejectWithValue(result: any) {
-  throw new Error('Function not implemented.')
+ProfilePage.getLayout = function getLayout(page: ReactElement) {
+  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
 }
+
+export default ProfilePage
