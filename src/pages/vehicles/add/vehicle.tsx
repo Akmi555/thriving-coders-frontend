@@ -1,23 +1,21 @@
 import {
   mdiAccount,
-  mdiAsterisk,
-  mdiFormTextboxPassword,
+  //mdiAsterisk,
+  //mdiFormTextboxPassword,
   mdiGasStation,
   mdiGithub,
   mdiMail,
-  mdiUpload,
+  //mdiUpload,
 } from '@mdi/js'
 import { Formik, Form, Field } from 'formik'
 import Head from 'next/head'
-import type { ReactElement } from 'react'
 import Button from 'components/Button'
 import Buttons from 'components/Buttons'
-import Divider from 'components/Divider'
+//import Divider from 'components/Divider'
 import CardBox from 'components/CardBox'
 import CardBoxComponentBody from 'components/CardBox/Component/Body'
 import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
 import FormField from 'components/Form/Field'
-import FormFilePicker from 'components/Form/FilePicker'
 //import LayoutAuthenticated from 'layouts/Authenticated'
 import SectionMain from 'components/Section/Main'
 import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
@@ -25,14 +23,13 @@ import CardBoxUser from 'components/CardBox/User'
 import { useAppSelector } from 'src/stores/hooks'
 import { UserForm } from 'interfaces/index'
 import { getPageTitle } from 'src/config'
-import { title } from 'process'
-import LayoutAuthenticated from 'src/layouts/Authenticated'
-import ProfilePage from 'src/pages/profile'
+
+
 //import type { UserForm } from 'interfaces'
 //import { getPageTitle } from 'config'
 //import { useAppSelector } from 'stores/hooks'
 
-const ProflePage = () =>  {
+const  AddNewVehiclePage = () =>  {
   const userName = useAppSelector((state) => state.main.userName)
   const userEmail = useAppSelector((state) => state.main.userEmail)
  { /*const AddVehicleValidationSchema = Yup.object().shape({
@@ -132,14 +129,14 @@ const ProflePage = () =>  {
                         name="fuelType"
                         id="fuelType"
                         placeholder="FuelType"
-                        component="select"
-                      />
-                      {/*<option value="">Please select fuel Type</option>
+                        component="select">
+                      <option value="">Please select fuel Type</option>
                       <option value="electric">Electric</option>
                       <option value="diesel">Diesel</option>
                       <option value="gasoline">Gasoline</option>
                       <option value="hybrid">Hybrid</option>
-                      <option value="natural_gas">Natural_gas</option>*/}
+                      <option value="natural_gas">Natural_gas</option>
+                      </Field>
                     </FormField>
                     <FormField
                       label="Range with Cargo"
@@ -234,9 +231,6 @@ const ProflePage = () =>  {
   )
 }
 
-ProfilePage.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
-}
 
-export default ProfilePage
-//export default AddNewVehiclePage
+
+export default AddNewVehiclePage
