@@ -34,6 +34,31 @@ import LayoutAuthenticated from 'src/layouts/Authenticated'
 const ProfilePage = () => {
   const userName = useAppSelector((state) => state.main.userName)
   const userEmail = useAppSelector((state) => state.main.userEmail)
+ { /*const AddVehicleValidationSchema = Yup.object().shape({
+    model: Yup.string()
+      .min(2, 'model is too short!')
+      .max(50, 'model is too long!')
+      .required('model is required!'),
+    weightCapacity: Yup.number()
+      .min(2, 'Weight capacity is too small')
+      .max(5000, 'Weight capacity is too big')
+      .required('Weight capacity is required!'),
+    fuelType: Yup.string().required('fuel type is required!'),
+    rangeWithCargo: Yup.number()
+      .min(10, 'Range with Cargo is too  small')
+      .required('Range is required'),
+    rangeWithoutCargo: Yup.number()
+      .min(10, 'Range is too  small')
+      .required('Range with Cargo is required'),
+    fuelConsumptionWithCargo: Yup.number()
+      .min(10, 'Fuel consumption with Cargo is too  small')
+      .required('Fuel consumption with Cargo is required'),
+    usefulArea: Yup.number().min(10, 'usefulArea is too  small').required('usefulArea is required'),
+    costOfDelivery: Yup.number()
+      .min(2, 'cost Of Delivery is too  small')
+      .required('Range is required'),
+    status: Yup.string().min(2, 'statue is too  small').required('status is required'),
+  })*/}
 
   const userForm: UserForm = {
     name: userName,
