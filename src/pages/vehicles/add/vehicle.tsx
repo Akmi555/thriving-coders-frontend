@@ -7,6 +7,7 @@ import {
     mdiMail,
     //mdiUpload,
   } from '@mdi/js'
+  import * as Yup from 'yup';
   import { Formik, Form, Field } from 'formik'
   import Head from 'next/head'
   import Button from 'components/Button'
@@ -32,7 +33,7 @@ import {
   const  AddNewVehiclePage = () =>  {
     const userName = useAppSelector((state) => state.main.userName)
     const userEmail = useAppSelector((state) => state.main.userEmail)
-   { /*const AddVehicleValidationSchema = Yup.object().shape({
+   const AddVehicleValidationSchema = Yup.object().shape({
       model: Yup.string()
         .min(2, 'model is too short!')
         .max(50, 'model is too long!')
@@ -56,7 +57,7 @@ import {
         .min(2, 'cost Of Delivery is too  small')
         .required('Range is required'),
       status: Yup.string().min(2, 'statue is too  small').required('status is required'),
-    })*/}
+    })
   
     const userForm: UserForm = {
       name: userName,
@@ -170,6 +171,8 @@ import {
                 usefulArea: '',
                 costOfDelivery: '',
                 }}
+
+                validationSchema={AddVehicleValidationSchema}
                 onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
               >
                 <Form className="flex flex-col flex-1">
