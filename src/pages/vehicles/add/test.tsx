@@ -15,7 +15,7 @@ const TestForm = () => {
         {
             test: Yup.number()
                 .min(10, 'Число должно быть не меньше 10')
-                .max(50, 'Число должноп быть не больше 50')
+                .max(50, 'Число должно быть не больше 50')
                 .integer('Число должно быть целым')
                 .required('Введите число, оно обязательно к заполнению')
         }
@@ -30,18 +30,25 @@ const TestForm = () => {
 
             <SectionMain>
 
-                <Formik initialValues={{ test: '123' }} onSubmit={() => console.log('send data to server')}>
-                    <Form>
+                <Formik initialValues={{ test: '' }}
+                    validationSchema={AddTestValidationSchema}
+                    onSubmit={() => console.log('send data to server')}>
+                    {({ errors, touched }) => (
+                        <Form>
 
-                        <FormField label="Please insert Test" icons={[mdiAbTesting]}>
-                            <Field name="test" placeholder="Input please Test" />
-                        </FormField>
+                            <FormField label="Please insert Test" icons={[mdiAbTesting]}
+                            errors={[errors.test && touched.test ? errors.test : null]}
+                            >
+                                <Field name="test" placeholder="Input please Test" />
+                            </FormField>
 
-                        <Buttons>
-                            <Button type="submit" color="info" label="Submit" />
-                            <Button type="reset" color="info" outline label="Reset" />
-                        </Buttons>
-                    </Form>
+                            <Buttons>
+                                <Button type="submit" color="info" label="Submit" />
+                                <Button type="reset" color="info" outline label="Reset" />
+                            </Buttons>
+                        </Form>
+                        )
+                    }
                 </Formik>
 
             </SectionMain >
