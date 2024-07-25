@@ -1,5 +1,6 @@
 import { mdiAccountGroup, mdiAccountPlus } from "@mdi/js";
 import Button from "components/Button";
+
 import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
 import Head from "next/head"
@@ -14,10 +15,10 @@ const CustomersOverviewPage = () => {
             <SectionMain>
                 <SectionTitleLineWithButton icon={mdiAccountGroup} title="Customers overview" main>
                     <Button
-                        href="/customers/add"
+                        href="/customers/add/customer"
                         // target="_blank"
                         icon={mdiAccountPlus}
-                        label="Add new customers"
+                        label="Add new customer"
                         color="contrast"
                         roundedFull
                         small
