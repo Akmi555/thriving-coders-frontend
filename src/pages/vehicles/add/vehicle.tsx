@@ -94,7 +94,87 @@ const AddNewVehiclePage = () => {
 
         
           </div>
-
+          <CardBox className="flex-1" hasComponentLayout>
+              <Formik
+                      initialValues={{
+                        model: '',
+                        weightCapacity: '',
+                        fuelType: '',
+                        rangeWithCargo: '',
+                        rangeWithOutCargo: '',
+                        fuelConsumptionWithCargo: '',
+                        usefulArea: '',
+                        costOfDelivery: '',
+                      }}
+                onSubmit={() => alert("hello world")}
+              >
+                {({ errors, touched }) => (
+                  <Form className="flex flex-col flex-1">
+                    <CardBoxComponentBody>
+                      <FormField
+                        label="Model"
+                        //help="Required. Insert vehicle's model"
+                        labelFor="model"
+                        icons={[mdiAccount]}
+                        errors={[errors.model+"   "]}
+                      >
+                        <Field name="model" placeholder="Model" />
+                      </FormField>
+                      <FormField
+                        label="Weight Capacity"
+                        help="Required. Insert Weight Capacity"
+                        labelFor="weightCapacity"
+                        icons={[mdiMail]}
+                      >
+                        <Field
+                          name="weightCapacity"
+                          id="weightCapacity"
+                          placeholder="weightCapacity"
+                        />
+                      </FormField>
+                      <FormField
+                        label="Fuel Type"
+                        help="Required. Fuel Type"
+                        labelFor="fuelType"
+                        icons={[mdiGasStation]}
+                      >
+                        <Field
+                          name="fuelType"
+                          id="fuelType"
+                          placeholder="FuelType"
+                          component="select"
+                        >
+                          <option value="">Please select fuel Type</option>
+                          <option value="electric">Electric</option>
+                          <option value="diesel">Diesel</option>
+                          <option value="gasoline">Gasoline</option>
+                          <option value="hybrid">Hybrid</option>
+                          <option value="natural_gas">Natural_gas</option>
+                        </Field>
+                      </FormField>
+                      <FormField
+                        label="Range with Cargo"
+                        help="Required. Range with Cargo"
+                        labelFor="rangeWithCargo"
+                        icons={[mdiMail]}
+                      >
+                        <Field
+                          name="rangeWithCargo"
+                          id="rangeWithCargo"
+                          placeholder="rageWithCargo"
+                        />
+                      </FormField>
+                    </CardBoxComponentBody>
+                    <CardBoxComponentFooter>
+                      {/* <Buttons>
+                        <Button color="info" type="submit" label="Submit" />
+                        <Button color="info" label="Options" outline />
+                      </Buttons>*/}
+                    </CardBoxComponentFooter>
+                  </Form>
+                )}
+              </Formik>
+            </CardBox>
           <CardBox hasComponentLayout>
             <Formik
               initialValues={{
