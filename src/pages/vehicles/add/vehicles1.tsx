@@ -68,7 +68,7 @@ import {
             />
           </SectionTitleLineWithButton>
   
-          <CardBoxUser className="mb-6" />
+          {/*<CardBoxUser className="mb-6" />*/}
   
           <CardBox>
             <Formik
@@ -182,7 +182,7 @@ import {
                   <CardBoxComponentFooter>
                     <Buttons>
                       <Button color="info" type="submit" label="Submit" />
-                      <Button color="info" label="Options" outline />
+                      <Button color="info" type="reset" label="Reset" outline />
                     </Buttons>
                   </CardBoxComponentFooter>
                 </Form>
