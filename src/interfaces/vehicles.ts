@@ -8,5 +8,5 @@ export type Vehicle = {
     fuelConsumptionWithCargo: number
     usefulArea: number
     costOfDelivery: number
-    //status??
+    status: string
 }
