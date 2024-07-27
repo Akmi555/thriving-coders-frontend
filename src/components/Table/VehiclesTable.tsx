@@ -3,9 +3,10 @@ import Button from 'components/Button'
 import Buttons from 'components/Buttons'
 import Icon from 'components/Icon'
 import { Vehicle } from 'interfaces/vehicles'
+import Link from 'next/link'
 import React, { useEffect, useMemo, useState } from 'react'
 import { fetchAllVehicles } from 'src/hooks/vehiclesData'
-import { useStyleRegistry } from 'styled-jsx'
+
 
 const VehiclesTable = () => {
   const [vehiclesData, setVehiclesData] = useState({
@@ -98,7 +99,11 @@ for (let i = 0; i < numPages; i++) {
         <tbody>
             {vehiclesPaginated.map((vehicle: Vehicle) => (
                 <tr key={vehicle.vehicleId}>
-                    <td>{vehicle.model}</td>
+                    <td>
+                            <Link href={`/vehicles/${vehicle.vehicleId}`}>
+                                {vehicle.model}
+                            </Link>
+                        </td>
                     <td>{vehicle.weightCapacity}</td>
                     <td>{vehicle.fuelType}</td>
                     <td>{vehicle.rangeWithCargo}</td>
