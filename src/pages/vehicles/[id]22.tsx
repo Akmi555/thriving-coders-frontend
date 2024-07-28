@@ -49,25 +49,20 @@ const Vehicle = () => {
 
     return (
         <>
-            <div style={{ textAlign: 'left', margin: '0 auto', maxWidth: '600px' }}>
-            <p style={{ fontSize: '24px',  fontWeight: 'bold' }}>
+            <div>
+                <p>
+                    <h1>Vehicle with id: {id}</h1>
+                    <br />
+                    Model: {vehicleData.vehicle ? vehicleData.vehicle.model : 'Unknown'}
+                    <br/>
+                    Cost of Delivery: {vehicleData.vehicle ? vehicleData.vehicle.costOfDelivery : 'Unknown'}
+                    
+                </p>
+                <p>
                     Vehicle
                 </p>
-            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                    Vehicle with id: {id}</p>
-                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                    Model: {vehicleData.vehicle ? vehicleData.vehicle.model : 'Unknown'}
-                </p>
-                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                    Cost of Delivery: {vehicleData.vehicle ? vehicleData.vehicle.costOfDelivery+" €" : 'Unknown'}
-                </p>
-                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                    Status: {vehicleData.vehicle ? vehicleData.vehicle.status : 'Unknown'}
-                </p>
-               
             </div>
         </>
-        
     );
 };
 

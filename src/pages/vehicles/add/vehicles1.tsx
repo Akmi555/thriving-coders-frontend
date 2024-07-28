@@ -28,14 +28,14 @@ const AddNewVehiclePage = () => {
 
   const AddVehicleValidationSchema = Yup.object().shape({
     model: Yup.string()
-      .min(2, 'model is too short!')
-      .max(50, 'model is too long!')
-      .required('model is required!'),
+      .min(2, 'Model is too short!')
+      .max(50, 'Model is too long!')
+      .required('Model is required!'),
     weightCapacity: Yup.number()
       .min(2, 'Weight capacity is too small')
       .max(5000, 'Weight capacity is too big')
       .required('Weight capacity is required!'),
-    fuelType: Yup.string().required('fuel type is required!'),
+    fuelType: Yup.string().required('Fuel type is required!'),
     rangeWithCargo: Yup.number()
       .min(10, 'Range with Cargo is too small')
       .required('Range with Cargo is required'),
