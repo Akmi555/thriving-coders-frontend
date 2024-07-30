@@ -11,5 +11,4 @@ const deleteVehicle = async (vehicleData) => {
   }
 };
 
-export default delete
-Vehicle;
+export default deleteVehicle;
