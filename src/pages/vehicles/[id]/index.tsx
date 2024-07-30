@@ -130,6 +130,7 @@ const Vehicle = () => {
                         <Button
                             color="danger"
                             label="Delete"
+                            href={`/vehicles/${id}/delete`}
                             outline={values.outline}
                             small={values.small}
                             roundedFull={values.rounded}
