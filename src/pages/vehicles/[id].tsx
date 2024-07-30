@@ -1,3 +1,4 @@
+import Button from 'components/Button';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { fetchOneVehicle } from 'src/hooks/vehicleData';
@@ -66,8 +67,9 @@ const Vehicle = () => {
                 </p>
                
             </div>
+            <Button>Delete</Button>
         </>
-        
+    
     );
 };
 
