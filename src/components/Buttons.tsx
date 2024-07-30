@@ -1,6 +1,5 @@
 import { Children, cloneElement, ReactElement } from 'react'
 import type { ReactNode } from 'react'
-import Button from './Button'
 
 type Props = {
   type?: string
@@ -28,7 +27,6 @@ const Buttons = ({
       {Children.map(children, (child: ReactElement) =>
         child ? cloneElement(child, { className: `${classAddon} ${child.props.className}` }) : null
       )}
-      <Button>Delete</Button>
     </div>
   )
 }
