@@ -88,12 +88,12 @@ for (let i = 0; i < numPages; i++) {
                     <Icon path={mdiSort} onClick={() => handleSort('weightCapacity')} />
                 </th>
                 <th>Fuel</th>
-                <th>km with Cargo</th>
-                <th>km without Cargo</th>
-                <th>Fuel with Cargo</th>
+                <th>km w/C</th>
+                <th>km w/o C</th>
+                <th>Fuel w/C</th>
                 <th>Area</th>
-                <th>Cost of delivery</th>
-
+                <th>Cost</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -111,6 +111,7 @@ for (let i = 0; i < numPages; i++) {
                     <td>{vehicle.fuelConsumptionWithCargo}</td>
                     <td>{vehicle.usefulArea}</td>
                     <td>{vehicle.costOfDelivery}</td>
+                    <td>{vehicle.status}</td>
                 </tr>
             ))}
         </tbody>
