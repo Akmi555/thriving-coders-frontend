@@ -1,14 +1,12 @@
-import { mdiCar2Plus, mdiGithub, mdiMonitorCellphone, mdiPlus, mdiTableBorder, mdiTableOff } from '@mdi/js'
+import { mdiCar, mdiPlus, mdiTableOff } from '@mdi/js'
 import Head from 'next/head'
-import React, { ReactElement } from 'react'
+import React from 'react'
 import Button from '../../components/Button'
 import CardBox from '../../components/CardBox'
 import CardBoxComponentEmpty from '../../components/CardBox/Component/Empty'
-import LayoutAuthenticated from '../../layouts/Authenticated'
 import NotificationBar from '../../components/NotificationBar'
 import SectionMain from '../../components/Section/Main'
 import SectionTitleLineWithButton from '../../components/Section/TitleLineWithButton'
-import TableSampleClients from '../../components/Table/SampleClients'
 import { getPageTitle } from '../../config'
 import VehiclesTable from 'components/Table/VehiclesTable'
 
@@ -21,7 +19,7 @@ const VehiclesPage: React.FC=()=>{
                 <title>{getPageTitle('Vehicles overview')}</title>
               </Head>
               <SectionMain>
-                <SectionTitleLineWithButton icon={mdiTableBorder} title="Vehicles" main>
+                <SectionTitleLineWithButton icon={mdiCar} title="Vehicles" main>
                   <Button
                     href="/vehicles/add/vehicle"
                     icon={mdiPlus}
