@@ -1,6 +1,6 @@
 import { mdiCar, mdiPlus, mdiTableOff } from '@mdi/js'
 import Head from 'next/head'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Button from '../../components/Button'
 import CardBox from '../../components/CardBox'
 import CardBoxComponentEmpty from '../../components/CardBox/Component/Empty'
@@ -9,9 +9,10 @@ import SectionMain from '../../components/Section/Main'
 import SectionTitleLineWithButton from '../../components/Section/TitleLineWithButton'
 import { getPageTitle } from '../../config'
 import VehiclesTable from 'components/Table/VehiclesTable'
+import LayoutAuthenticated from 'src/layouts/Authenticated'
 
 
-const VehiclesPage: React.FC=()=>{
+const VehiclesPage =()=>{
 
     return(
             <>
@@ -50,6 +51,11 @@ const VehiclesPage: React.FC=()=>{
                 </CardBox>
               </SectionMain>
             </>
-    );
-};
+    )
+}
+
+VehiclesPage.getLayout = function getLayout(page: ReactElement) {
+  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
+}
+
 export default VehiclesPage;
