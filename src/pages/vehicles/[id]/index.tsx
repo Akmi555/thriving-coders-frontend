@@ -4,8 +4,9 @@ import Buttons from 'components/Buttons';
 import CardBoxModal from 'components/CardBox/Modal';
 import { Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { fetchOneVehicle } from 'src/hooks/vehicleData';
+import LayoutAuthenticated from 'src/layouts/Authenticated';
 
 
 
@@ -143,7 +144,11 @@ const Vehicle = () => {
 
         </>
 
-    );
-};
+    )
+}
+
+Vehicle.getLayout = function getLayout(page: ReactElement) {
+    return <LayoutAuthenticated>{page}</LayoutAuthenticated>
+  }
 
 export default Vehicle;
