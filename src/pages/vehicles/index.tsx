@@ -12,7 +12,7 @@ import VehiclesTable from 'components/Table/VehiclesTable'
 import LayoutAuthenticated from 'src/layouts/Authenticated'
 
 
-const VehiclesPage =()=>{
+const VehiclesOverviewPage =()=>{
 
     return(
             <>
@@ -54,8 +54,8 @@ const VehiclesPage =()=>{
     )
 }
 
-VehiclesPage.getLayout = function getLayout(page: ReactElement) {
+VehiclesOverviewPage.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>
 }
 
-export default VehiclesPage;
+export default VehiclesOverviewPage;
