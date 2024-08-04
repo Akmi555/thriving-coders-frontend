@@ -1,16 +1,14 @@
-import { mdiAccountClock, mdiCar } from '@mdi/js'
-import Button from 'components/Button'
-import Buttons from 'components/Buttons'
-import CardBoxModal from 'components/CardBox/Modal'
-import SectionMain from 'components/Section/Main'
-import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
-import { Formik } from 'formik'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { ReactElement, useEffect, useState } from 'react'
-import { getPageTitle } from 'src/config'
-import { fetchOneVehicle } from 'src/hooks/vehicleData'
-import LayoutAuthenticated from 'src/layouts/Authenticated'
+import { mdiAccountClock } from '@mdi/js';
+import Button from 'components/Button';
+import Buttons from 'components/Buttons';
+import CardBoxModal from 'components/CardBox/Modal';
+import { Formik } from 'formik';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { fetchOneVehicle } from 'src/hooks/vehicleData';
+
+
+
 
 const Vehicle = () => {
   const [isModalInfoActive, setIsModalInfoActive] = useState(false)
@@ -145,23 +143,23 @@ const Vehicle = () => {
                 disabled={values.disabled}
               />
 
-              <Button
-                color="danger"
-                label="Delete"
-                href={`/vehicles/${id}/delete`}
-                outline={values.outline}
-                small={values.small}
-                roundedFull={values.rounded}
-                disabled={values.disabled}
-              />
-            </Buttons>
-          )}
-        </Formik>
-      </SectionMain>
-    </>
-  )
-}
-Vehicle.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
-}
-export default Vehicle
+                        <Button
+                            color="danger"
+                            label="Delete"
+                            href={`/vehicles/${id}/delete`}
+                            outline={values.outline}
+                            small={values.small}
+                            roundedFull={values.rounded}
+                            disabled={values.disabled}
+                        />
+
+
+                    </Buttons>)}
+            </Formik>
+
+        </>
+
+    );
+};
+
+export default Vehicle;
