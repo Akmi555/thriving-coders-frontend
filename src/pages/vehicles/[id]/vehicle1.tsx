@@ -22,37 +22,13 @@ import { getPageTitle } from 'src/config'
 import { Vehicle } from 'interfaces/vehicles'
 import { useState } from 'react'
 import addNewVehicle from './addNewVehicle'
+import vehicle from './vehicle'
 
 const AddNewVehiclePage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const AddVehicleValidationSchema = Yup.object().shape({
-    model: Yup.string()
-      .min(2, 'Model is too short!')
-      .max(50, 'Model is too long!')
-      .required('Model is required!'),
-    weightCapacity: Yup.number()
-      .min(2, 'Weight capacity is too small')
-      .max(5000, 'Weight capacity is too big')
-      .required('Weight capacity is required!'),
-    fuelType: Yup.string().required('Fuel type is required!'),
-    rangeWithCargo: Yup.number()
-      .min(10, 'Range with Cargo is too small')
-      .required('Range with Cargo is required'),
-    rangeWithOutCargo: Yup.number()
-      .min(10, 'Range is too small')
-      .required('Range without Cargo is required'),
-    fuelConsumptionWithCargo: Yup.number()
-      .min(10, 'Fuel consumption with Cargo is too small')
-      .required('Fuel consumption with Cargo is required'),
-    usefulArea: Yup.number().min(10, 'Useful area is too small').required('Useful area is required'),
-    costOfDelivery: Yup.number()
-      .min(2, 'Cost of delivery is too small')
-      .required('Cost of delivery is required'),
-    status: Yup.string().min(2, 'Status is too small').required('Status is required'),
-  })
-
+  
   const handleSubmit = async (vehicleData: Vehicle) => {
     try {
       setLoading(true);
@@ -79,7 +55,7 @@ const AddNewVehiclePage = () => {
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiCar} title="Add new vehicle+++" main>
+        <SectionTitleLineWithButton icon={mdiCar} title="Information about specific vehicle" main>
           <Button
             href="/vehicles/"
             //target="_blank"
@@ -107,7 +83,6 @@ const AddNewVehiclePage = () => {
               costOfDelivery: '',
               status: '',
             }}
-            validationSchema={AddVehicleValidationSchema}
             // onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
             onSubmit={async (vehicleData) => handleSubmit(vehicleData)}
           >
@@ -119,9 +94,9 @@ const AddNewVehiclePage = () => {
                       label="Model"
                       labelFor="model"
                       icons={[mdiAccount]}
-                      errors={[errors.model && touched.model ? errors.model : null]}
+                      //errors={[errors.model && touched.model ? errors.model : null]}
                     >
-                      <Field name="model" id="model" placeholder="Model" />
+                      <Field name="model" id="model" placeholder={vehicle.model} />
                     </FormField>
 
                     <FormField
