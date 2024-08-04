@@ -1,8 +1,10 @@
 import { mdiAccountGroup, mdiAccountPlus } from "@mdi/js";
 import Button from "components/Button";
+import CardBox from "components/CardBox";
 
 import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
+import CustomersTable from "components/Table/CustomersTable";
 import Head from "next/head"
 import { getPageTitle } from "src/config"
 
@@ -24,6 +26,9 @@ const CustomersOverviewPage = () => {
                         small
                     />
                 </SectionTitleLineWithButton>
+                <CardBox className="mb-6" hasTable>
+                    <CustomersTable />
+                </CardBox>
             </SectionMain>
         </>);
 }
