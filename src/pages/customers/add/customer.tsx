@@ -67,7 +67,7 @@ const AddNewCustomerPage = () => {
     };
 
     const showSuccessToast = () => {
-        toast.success('New employee successfully added!', {
+        toast.success('New customer successfully added!', {
             icon: <Icon path={mdiAccountPlus} size={48} />,
             position: "bottom-right",
             autoClose: 5000,
