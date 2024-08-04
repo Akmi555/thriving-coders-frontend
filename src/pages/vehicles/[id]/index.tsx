@@ -76,45 +76,45 @@ const Vehicle = () => {
           />
         </SectionTitleLineWithButton>
 
-        <div style={{ textAlign: 'left', margin: '0 auto', maxWidth: '600px' }}>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>Vehicle Information</p>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>
+        <div className="text-left mx-auto max-w-4xl">
+          <p className="text-2xl font-bold">Vehicle Information</p>
+          <table className="min-w-full divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-200">
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Model</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.model}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Model</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.model}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Weight Capacity</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.weightCapacity}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Weight Capacity</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.weightCapacity}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Fuel Type</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.fuelType}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Fuel Type</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.fuelType}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Range with Cargo</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.rangeWithCargo}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Range with Cargo</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.rangeWithCargo}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Range without Cargo</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.rangeWithOutCargo}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Range without Cargo</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.rangeWithOutCargo}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Fuel Consumption with Cargo</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.fuelConsumptionWithCargo}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Fuel Consumption with Cargo</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.fuelConsumptionWithCargo}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Useful Area</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.usefulArea}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Useful Area</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.usefulArea}</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Cost of Delivery</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.costOfDelivery} €</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Cost of Delivery</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.costOfDelivery} €</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid black', padding: '8px' }}>Status</td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.status}</td>
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Status</td>
+                <td className="px-6 py-4 whitespace-nowrap">{vehicle.status}</td>
               </tr>
             </tbody>
           </table>
@@ -131,7 +131,7 @@ const Vehicle = () => {
           onSubmit={() => null}
         >
           {({ values }) => (
-            <Buttons>
+            <div className="buttons-container">
               <Button
                 color="info"
                 icon={mdiAccountClock}
@@ -165,12 +165,22 @@ const Vehicle = () => {
                 roundedFull={values.rounded}
                 disabled={values.disabled}
               />
-            </Buttons>
+            </div>
           )}
         </Formik>
       </SectionMain>
+
+      <style jsx>{`
+        .buttons-container {
+          display: flex;
+          justify-content: center; /* Центровка кнопок по горизонтали */
+          gap: 1rem; /* Отступы между кнопками */
+          margin-top: 2rem; /* Отступ сверху */
+        }
+      `}</style>
     </>
   );
 };
 
 export default Vehicle;
+
