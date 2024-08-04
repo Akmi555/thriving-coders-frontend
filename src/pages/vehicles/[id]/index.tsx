@@ -1,4 +1,4 @@
-import { mdiAccountClock } from '@mdi/js';
+import { mdiAccountClock, mdiCar } from '@mdi/js';
 import Button from 'components/Button';
 import Buttons from 'components/Buttons';
 import CardBoxModal from 'components/CardBox/Modal';
@@ -6,20 +6,21 @@ import { Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { fetchOneVehicle } from 'src/hooks/vehicleData';
-
-
-
+import Head from 'next/head';
+import SectionMain from 'components/Section/Main';
+import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton';
+import { getPageTitle } from 'src/config';
 
 const Vehicle = () => {
-  const [isModalInfoActive, setIsModalInfoActive] = useState(false)
-  const [isModalDangerActive, setIsModalDangerActive] = useState(false)
-  const [isModalSuccessActive, setIsModalSuccessActive] = useState(false)
+  const [isModalInfoActive, setIsModalInfoActive] = useState(false);
+  const [isModalDangerActive, setIsModalDangerActive] = useState(false);
+  const [isModalSuccessActive, setIsModalSuccessActive] = useState(false);
 
   const handleModalAction = () => {
-    setIsModalInfoActive(false)
-    setIsModalDangerActive(false)
-    setIsModalSuccessActive(false)
-  }
+    setIsModalInfoActive(false);
+    setIsModalDangerActive(false);
+    setIsModalSuccessActive(false);
+  };
 
   const modalSampleContents = (
     <>
@@ -28,50 +29,50 @@ const Vehicle = () => {
       </p>
       <p>This is sample modal</p>
     </>
-  )
+  );
 
   const [vehicleData, setVehicleData] = useState({
     vehicle: null,
     isLoading: true,
     isError: false,
-  })
+  });
 
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
-  console.log('vehicle id = ' + id) // TODO - удалить
+  console.log('vehicle id = ' + id); // TODO - удалить
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchOneVehicle(id)
-        console.log(result)
+        const result = await fetchOneVehicle(id);
+        console.log(result);
         setVehicleData({
           vehicle: result.vehicle,
           isLoading: false,
           isError: result.isError,
-        })
+        });
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching data:', error);
         setVehicleData({
           vehicle: null,
           isLoading: false,
           isError: true,
-        })
+        });
       }
-    }
+    };
 
     if (id) {
-      fetchData()
+      fetchData();
     }
-  }, [id])
+  }, [id]);
 
   if (vehicleData.isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (vehicleData.isError) {
-    return <div>Error loading vehicle data</div>
+    return <div>Error loading vehicle data</div>;
   }
 
   return (
@@ -83,7 +84,7 @@ const Vehicle = () => {
         <SectionTitleLineWithButton icon={mdiCar} title="Information about specific vehicle" main>
           <Button
             href="/vehicles/"
-            //target="_blank"
+            // target="_blank"
             icon={mdiCar}
             label="Back to vehicle's overview"
             color="contrast"
@@ -142,24 +143,21 @@ const Vehicle = () => {
                 roundedFull={values.rounded}
                 disabled={values.disabled}
               />
-
-                        <Button
-                            color="danger"
-                            label="Delete"
-                            href={`/vehicles/${id}/delete`}
-                            outline={values.outline}
-                            small={values.small}
-                            roundedFull={values.rounded}
-                            disabled={values.disabled}
-                        />
-
-
-                    </Buttons>)}
-            </Formik>
-
-        </>
-
-    );
+              <Button
+                color="danger"
+                label="Delete"
+                href={`/vehicles/${id}/delete`}
+                outline={values.outline}
+                small={values.small}
+                roundedFull={values.rounded}
+                disabled={values.disabled}
+              />
+            </Buttons>
+          )}
+        </Formik>
+      </SectionMain>
+    </>
+  );
 };
 
 export default Vehicle;
