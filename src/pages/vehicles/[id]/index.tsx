@@ -12,25 +12,6 @@ import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton';
 import { getPageTitle } from 'src/config';
 
 const Vehicle = () => {
-  const [isModalInfoActive, setIsModalInfoActive] = useState(false);
-  const [isModalDangerActive, setIsModalDangerActive] = useState(false);
-  const [isModalSuccessActive, setIsModalSuccessActive] = useState(false);
-
-  const handleModalAction = () => {
-    setIsModalInfoActive(false);
-    setIsModalDangerActive(false);
-    setIsModalSuccessActive(false);
-  };
-
-  const modalSampleContents = (
-    <>
-      <p>
-        Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-      </p>
-      <p>This is sample modal</p>
-    </>
-  );
-
   const [vehicleData, setVehicleData] = useState({
     vehicle: null,
     isLoading: true,
@@ -75,6 +56,8 @@ const Vehicle = () => {
     return <div>Error loading vehicle data</div>;
   }
 
+  const vehicle = vehicleData.vehicle;
+
   return (
     <>
       <Head>
@@ -92,19 +75,49 @@ const Vehicle = () => {
             small
           />
         </SectionTitleLineWithButton>
+
         <div style={{ textAlign: 'left', margin: '0 auto', maxWidth: '600px' }}>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>Vehicle+++</p>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>Vehicle with id: {id}</p>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-            Model: {vehicleData.vehicle ? vehicleData.vehicle.model : 'Unknown'}
-          </p>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-            Cost of Delivery:{' '}
-            {vehicleData.vehicle ? vehicleData.vehicle.costOfDelivery + ' €' : 'Unknown'}
-          </p>
-          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-            Status: {vehicleData.vehicle ? vehicleData.vehicle.status : 'Unknown'}
-          </p>
+          <p style={{ fontSize: '24px', fontWeight: 'bold' }}>Vehicle Information</p>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <tbody>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Model</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.model}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Weight Capacity</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.weightCapacity}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Fuel Type</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.fuelType}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Range with Cargo</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.rangeWithCargo}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Range without Cargo</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.rangeWithOutCargo}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Fuel Consumption with Cargo</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.fuelConsumptionWithCargo}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Useful Area</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.usefulArea}</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Cost of Delivery</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.costOfDelivery} €</td>
+              </tr>
+              <tr>
+                <td style={{ border: '1px solid black', padding: '8px' }}>Status</td>
+                <td style={{ border: '1px solid black', padding: '8px' }}>{vehicle.status}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <Formik
