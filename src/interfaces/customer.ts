@@ -1,10 +1,16 @@
     export type Customer = {
-    taxIdentificationNumber?: string;//TODO ? need or not?
+    customerId: number;
+    taxIdentificationNumber:string;
     companyName: string;
     legalAddress: string;
     postalCode: string;
     country: string;
-    deliveryAddresses: string; //DeliveryAddress[]
-    address: string;
-    contactPerson: string;
+    email: string;
+    password: string;
+    active: boolean;
+    activationCode: string;
+    activationCodeCreationTime: string;
+    deliveryAddresses: any; //DeliveryAddress[]
+
+
   }
