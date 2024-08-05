@@ -6,7 +6,9 @@ import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
 import CustomersTable from "components/Table/CustomersTable";
 import Head from "next/head"
+import { ReactElement } from "react";
 import { getPageTitle } from "src/config"
+import LayoutAuthenticated from "src/layouts/Authenticated";
 
 const CustomersOverviewPage = () => {
     return (
@@ -32,5 +34,8 @@ const CustomersOverviewPage = () => {
             </SectionMain>
         </>);
 }
+CustomersOverviewPage.getLayout = function getLayout(page: ReactElement) {
+    return <LayoutAuthenticated>{page}</LayoutAuthenticated>
+  }
 
 export default CustomersOverviewPage
