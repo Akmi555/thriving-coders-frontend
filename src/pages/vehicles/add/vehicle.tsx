@@ -62,7 +62,7 @@ const AddNewVehiclePage = () => {
         console.log('a vehicle is saved')
         // showSuccessToast();
       } else {
-        // if another status
+        // handle other statuses
       }
 
     } catch (error) {
@@ -98,18 +98,33 @@ const AddNewVehiclePage = () => {
             initialValues={{
               vehicleId: -1,
               model: '',
-              weightCapacity: '',
-              fuelType: '',
-              rangeWithCargo: '',
-              rangeWithOutCargo: '',
-              fuelConsumptionWithCargo: '',
-              usefulArea: '',
-              costOfDelivery: '',
+              weightCapacity: 0,
+              fuelType: 0,
+              rangeWithCargo: 0,
+              rangeWithOutCargo: 0,
+              fuelConsumptionWithCargo: 0,
+              usefulArea: 0,
+              costOfDelivery: 0
+              
+              
+              ,
               status: '',
             }}
             validationSchema={AddVehicleValidationSchema}
             // onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
-            onSubmit={async (vehicleData) => handleSubmit(vehicleData)}
+            onSubmit={async (vehicleData) => {
+              // Convert string values to numbers
+              const convertedData = {
+                ...vehicleData,
+                weightCapacity: Number(vehicleData.weightCapacity),
+                rangeWithCargo: Number(vehicleData.rangeWithCargo),
+                rangeWithOutCargo: Number(vehicleData.rangeWithOutCargo),
+                fuelConsumptionWithCargo: Number(vehicleData.fuelConsumptionWithCargo),
+                usefulArea: Number(vehicleData.usefulArea),
+                costOfDelivery: Number(vehicleData.costOfDelivery),
+              }
+              handleSubmit(convertedData);
+            }}
           >
             {({ errors, touched }) => (
               <Form className="flex flex-col flex-1">
@@ -200,7 +215,12 @@ const AddNewVehiclePage = () => {
                       icons={[mdiAccount]}
                       errors={[errors.status && touched.status ? errors.status : null]}
                     >
-                      <Field name="status" id="status" placeholder="Status" />
+                       <Field name="status" id="status" placeholder="status" component="select">
+                        <option value="">Please select status</option>
+                        <option value="OK">OK</option>
+                        <option value="IN_REPAIR">IN_REPAIR</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                      </Field>
                     </FormField>
                   </div>
                 </CardBoxComponentBody>
