@@ -1,12 +1,12 @@
 export type Vehicle = {
     vehicleId: number
     model: string
-    weightCapacity: string
+    weightCapacity: number
     fuelType: string
-    rangeWithCargo: string
-    rangeWithOutCargo: string
-    fuelConsumptionWithCargo: string
-    usefulArea: string
-    costOfDelivery: string
+    rangeWithCargo: number
+    rangeWithOutCargo: number
+    fuelConsumptionWithCargo: number
+    usefulArea: number
+    costOfDelivery: number
     status: string
 }

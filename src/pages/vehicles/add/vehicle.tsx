@@ -99,15 +99,12 @@ const AddNewVehiclePage = () => {
               vehicleId: -1,
               model: '',
               weightCapacity: 0,
-              fuelType: 0,
+              fuelType: '',
               rangeWithCargo: 0,
               rangeWithOutCargo: 0,
               fuelConsumptionWithCargo: 0,
               usefulArea: 0,
-              costOfDelivery: 0
-              
-              
-              ,
+              costOfDelivery: 0,
               status: '',
             }}
             validationSchema={AddVehicleValidationSchema}
