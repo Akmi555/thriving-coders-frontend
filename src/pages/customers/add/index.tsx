@@ -157,7 +157,7 @@ const AddNewCustomerPage = () => {
                     >
                         {({ errors, touched }) => (
                             <Form>
-                               /* <pre>{JSON.stringify(errors)}</pre> */
+                                {/*<pre>{JSON.stringify(errors)}</pre> */}
                                 <FormField label="Please insert Tax identificaton number and company name" icons={[mdiAccountOutline, mdiAccount]}
                                     errors={[
                                         errors.taxIdentificationNumber && touched.taxIdentificationNumber ? errors.taxIdentificationNumber : null,
