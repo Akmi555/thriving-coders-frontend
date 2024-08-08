@@ -224,6 +224,7 @@ const AddNewVehiclePage = () => {
                 <CardBoxComponentFooter>
                   <Buttons>
                     <Button color="info" type="submit" label="Submit" />
+      
                     <Button color="info" type="reset" label="Reset" outline />
                   </Buttons>
                 </CardBoxComponentFooter>
