@@ -19,7 +19,7 @@ const CustomersOverviewPage = () => {
             <SectionMain>
                 <SectionTitleLineWithButton icon={mdiAccountGroup} title="Customers overview" main>
                     <Button
-                        href="/customers/add/customer"
+                        href="/customers/add"
                         // target="_blank"
                         icon={mdiAccountPlus}
                         label="Add new customer"

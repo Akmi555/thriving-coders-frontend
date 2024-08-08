@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup';
-import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiPhoneClassic } from '@mdi/js'
+import { mdiAccount, mdiAccountMultipleOutline, mdiAccountOutline, mdiAccountPlus, mdiAccountSettings, mdiCurrencyBtc, mdiEmail, mdiPhoneClassic } from '@mdi/js'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SectionMain from 'components/Section/Main'
@@ -18,39 +18,43 @@ import { useState } from 'react';
 import addNewCustomer from './addNewCustomer';
 
 
-
 const AddNewCustomerPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const AddCustomerValidationSchema = Yup.object().shape(
         {
-            taxIdentificationNumber: Yup.string()
-                .min(2, 'Tax identification number is too short!')
-                .max(11, 'Tax identification number!')//TODO check with backend how much
-                .required('Tax identification number is required!'),
             companyName: Yup.string()
                 .min(2, 'Company name is too short!')
                 .max(50, 'Company name is too long!')
                 .required('Company name is required!'),
+            taxIdentificationNumber: Yup.string()
+                .min(2, 'Tax identification number is too short!')
+                .max(11, 'Tax identification number!')//TODO check with backend how much
+                .required('Tax identification number is required!'),
             legalAddress: Yup.string()
-                .min(5, 'Adress is too short!')
-                .max(50, ' Adress is too long!')
-                .required('Adress is required!'),
+                .min(5, 'Address is too short!')
+                .max(50, ' Address is too long!')
+                .required('Address is required!'),
             postalCode: Yup.string()
                 .min(2, 'Postal Code is too short!')
                 .max(5, 'Postal Code!')//TODO check with backend how much
-                .required('Postal Code is required!'),
+                .required('Postal code is required!'),
             country: Yup.string()
                 .min(2, 'Country name is too short!')
                 .max(50, 'Country name is too long!')
                 .required('Country name is required!'),
-            deliveryAddresses: Yup.string()
-                .min(5, 'Adress of delivery is too short!')
-                .max(50, ' Adress of delivery is too long!')
-                .required('Adress of delivery is required!')
+            //deliveryAddresses: Yup.string()
+               // .min(5, 'Address of delivery is too short!')
+                //.max(50, ' Address of delivery is too long!')
+               // .required('Address of delivery is required!'),
+            email: Yup.string()
+                .min(5, 'Email address is too short!')
+                .max(50, ' Email address is too long!')
+                .required('Email address is required!')
         }
     );
+    
 
     const showLoadingToast = () => {
         toast.info('Loading...', {
@@ -95,7 +99,8 @@ const AddNewCustomerPage = () => {
         });
     };
 
-     const handleSubmit = async(customerData: Customer) =>{    
+     const handleSubmit = async(customerData: Customer) =>{  
+        console.log("Hello Customer")  
         try {
             setLoading(true);
             const response = await addNewCustomer(customerData);             
@@ -135,36 +140,45 @@ const AddNewCustomerPage = () => {
                 <CardBox>
                     <Formik
                         initialValues={{
+                            customerId: -1,
                             taxIdentificationNumber: '',
                             companyName: '',
                             legalAddress: '',
                             postalCode: '',
                             country: '',
-                            deliveryAddresses: '',
-                            address: '',
-                            contactPerson: '',
-                    
+                            deliveryAddresses: [],
+                            email: '',
+                            password: 'init',
+                
+                     
                         }}
                         validationSchema={AddCustomerValidationSchema}
-                        onSubmit={async (customerData) => handleSubmit(customerData)}
+                        onSubmit={handleSubmit}//TODO was double async 
                     >
                         {({ errors, touched }) => (
                             <Form>
+                               /* <pre>{JSON.stringify(errors)}</pre> */
                                 <FormField label="Please insert Tax identificaton number and company name" icons={[mdiAccountOutline, mdiAccount]}
                                     errors={[
                                         errors.taxIdentificationNumber && touched.taxIdentificationNumber ? errors.taxIdentificationNumber : null,
                                         errors.companyName && touched.companyName ? errors.companyName : null
                                     ]}
                                 >
-                                    <Field name="taxIdentificationNumber" placeholder="taxIdentificationNumber" />
-                                    <Field name="companyName" placeholder="companyName" />
+                                    <Field name="taxIdentificationNumber" placeholder="insert tax identification number" />
+                                    <Field name="companyName" placeholder="insert company name" />
                                 </FormField>
                                 
                                 <FormField
-                                    label="Provide Your legal Address"
+                                
+                                    label="Provide Your legal Address" icons={[mdiAccountOutline, mdiAccount]}
+                                    errors={[
+                                        errors.legalAddress && touched.legalAddress ? errors.legalAddress : null,
+                                        errors.postalCode && touched.postalCode ? errors.postalCode : null,
+                                        errors.country && touched.country ? errors.country : null
+                                        
+                                    ]}
                                     labelFor="legalAddress"
                                     // icons={[mdiPhoneClassic]}
-                                    errors={errors.legalAddress && touched.legalAddress ? [errors.legalAddress] : null}
                                 >
                                     {/* <Field name="contactInfo" placeholder="Contact information about new employee" id="contactInfo" />
                                 </FormField> // TODO postalcode, country, deliveryadress, contactperson
@@ -181,10 +195,31 @@ const AddNewCustomerPage = () => {
                                         <option value="engineer">Engineer</option>
                                         <option value="architect">Architect</option>
                                     </Field> */}
-                                    <Field name="legalAddress" placeholder="legalAddress" />
-                                    <Field name="postalCode" placeholder="postalCode" />
-                                    <Field name="country" placeholder="country" />
+                                    <Field name="legalAddress" placeholder="insert address" />
+                                    <Field name="postalCode" placeholder="insert postal code" />
+                                    <Field name="country" placeholder="insert country" />
                                 </FormField>
+                                
+
+                                <FormField 
+                                    label="Please insert email address"
+                                    icons={[mdiAccountOutline, mdiAccount]}
+                                    errors={[
+                                        errors.email && touched.email ? errors.email : null
+                                    ]}
+                                >
+                                    <Field name="email" placeholder="insert email address" />
+                                </FormField>
+
+                               {/* <FormField label="Please insert delivery addresses"
+                                        labelFor="deliveryAddresses"// Formik field arrray if massiv of adresses
+                                 icons={[mdiAccountOutline, mdiAccount]}
+                                    errors={[
+                                        errors.deliveryAddresses && touched.email ? errors.deliveryAddresses  : null
+                                    ]}
+                                >
+                                    <Field name="deliveryAddresses" placeholder="insert delivery addresses" />
+                                </FormField>*/}
 
                                 <Divider />
 

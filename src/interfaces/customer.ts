@@ -7,10 +7,11 @@
     country: string;
     email: string;
     password: string;
-    active: boolean;
-    activationCode: string;
-    activationCodeCreationTime: string;
-    deliveryAddresses: any; //DeliveryAddress[]
+    deliveryAddresses: [];
+    //active: boolean;
+   // activationCode: string;
+    //activationCodeCreationTime: string;
+    //deliveryAddresses: any; //DeliveryAddress[]
 
 
   }

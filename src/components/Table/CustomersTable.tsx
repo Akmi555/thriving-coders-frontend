@@ -5,7 +5,7 @@ import Icon from "components/Icon";
 import UserAvatar from "components/UserAvatar";
 import { Customer } from "interfaces/customer";
 import { useEffect, useMemo, useState } from "react";
-import customer from "src/pages/customers/add/customer";
+import customer from "src/pages/customers/add";
 import {fetchAllCustomers} from "../../hooks/customersData";
 
 
@@ -103,7 +103,7 @@ const CustomersTable  = () => {
                                 <UserAvatar username={customer.postalCode} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
                             </td>
                             <td data-label="CompanyName">{customer.companyName}</td>
-                            <td>{customer.postalCode}</td>
+                            <td>{customer.country}-{customer.postalCode}</td>
                             <td>{customer.legalAddress}</td>
                             <td>{customer.email}</td>
                         </tr>
