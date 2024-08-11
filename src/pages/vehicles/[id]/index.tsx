@@ -150,6 +150,8 @@ const Vehicle = () => {
               />
               <Button
                 color="info"
+                label="Edit"
+                href={`/vehicles/${id}/edit`}
                 icon={mdiAccountClock}
                 outline={values.outline}
                 small={values.small}
