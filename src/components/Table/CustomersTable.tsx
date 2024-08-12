@@ -6,17 +6,18 @@ import UserAvatar from "components/UserAvatar";
 import { Customer } from "interfaces/customer";
 import { useEffect, useMemo, useState } from "react";
 import customer from "src/pages/customers/add";
-import {fetchAllCustomers} from "../../hooks/customersData";
+import { fetchAllCustomers } from "../../hooks/customersData";
+import Link from 'next/link';
 
 
-const CustomersTable  = () => {
+const CustomersTable = () => {
     const [customersData, setCustomersData] = useState({
-        customers:[],
+        customers: [],
         isLoading: true,
         isError: false,
-    })  
-    const [sortConfig, setSortConfig] = useState({ field: null, direction: 'ascending'});
-    
+    })
+    const [sortConfig, setSortConfig] = useState({ field: null, direction: 'ascending' });
+
     const perPage = 5;
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -31,25 +32,25 @@ const CustomersTable  = () => {
                     isLoading: false,
                     isError: result.isError,
                 });
-           } catch (error) {
+            } catch (error) {
                 console.error('Error fetching data:', error);
                 setCustomersData({
                     customers: [],
                     isLoading: false,
                     isError: true,
                 });
-           }
+            }
         };
 
         fetchData();
-    },[]);
+    }, []);
 
-    const handleSort = (field: string) =>{
+    const handleSort = (field: string) => {
 
         console.log(field);
 
         const direction = sortConfig.field === field && sortConfig.direction === 'ascending' ? 'descending' : 'ascending';
-        setSortConfig({ field, direction});
+        setSortConfig({ field, direction });
     };
 
     const sortedCustomers = useMemo(() => {
@@ -64,14 +65,14 @@ const CustomersTable  = () => {
                 if (aValue < bValue) return sortConfig.direction === 'acsending' ? -1 : 1;
                 if (aValue > bValue) return sortConfig.direction === 'ascending' ? 1 : -1;
                 return 0;
-            });   
+            });
         }
 
         return sortedData;
     }, [customersData.customers, sortConfig]);
 
     const customersPaginated = sortedCustomers.slice(perPage * currentPage, perPage * (currentPage + 1));
-    
+
     const numPages = Math.ceil(sortedCustomers.length / perPage);
 
     const pageList = [];
@@ -79,26 +80,33 @@ const CustomersTable  = () => {
     for (let i = 0; i < numPages; i++) {
         pageList.push(i)
     }
-
-    return (  
-        <> 
+    return (
+        <>
             <table>
                 <thead>
                     <tr>
-                        <th />
-                        <th>Customer name</th>
+                        <th>Tax identification number</th>
+
+                        <th>Customer photo</th>
                         {/*<th style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span>Last name</span>
                             <Icon path={mdiSort} onClick={() => handleSort('position')} />
                         </th>*/}
+                        <th>Customer name</th>
                         <th>Postal code</th>
                         <th>Address</th>
                         <th>Email</th>
+                        <th>Active/Noactive</th>
                     </tr>
                 </thead>
                 <tbody>
                     {customersPaginated.map((customer: Customer) => (
                         <tr key={customer.customerId}>
+                            <td>
+                                <Link href={`/customers/${customer.customerId}`}>
+                                    {customer.taxIdentificationNumber}
+                                </Link>
+                            </td>
                             <td className="border-b-0 lg:w-6 before:hidden">
                                 <UserAvatar username={customer.postalCode} className="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
                             </td>
@@ -106,6 +114,7 @@ const CustomersTable  = () => {
                             <td>{customer.country}-{customer.postalCode}</td>
                             <td>{customer.legalAddress}</td>
                             <td>{customer.email}</td>
+                            <td>{customer.active}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -135,4 +144,3 @@ const CustomersTable  = () => {
 }
 export default CustomersTable;
 
- 
