@@ -149,6 +149,7 @@ const AddNewCustomerPage = () => {
                             deliveryAddresses: [],
                             email: '',
                             password: 'init',
+                            active: false,
                 
                      
                         }}
