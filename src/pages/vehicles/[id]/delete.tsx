@@ -43,10 +43,11 @@ const DeleteVehicle = () => {
       <SectionMain>
         <SectionTitleLineWithButton icon={mdiCar} title="Delete specific vehicle" main>
           <Button
-            href={`/vehicles/${id}`}
+            //href={`/vehicles/${id}`}
+            href={`/vehicles/`}
             // target="_blank"
             icon={mdiCar}
-            label="Back to specific vehicle"
+            label="Back to existing vehicles"
             color="contrast"
             roundedFull
             small

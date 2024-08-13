@@ -1,16 +1,20 @@
 import * as Yup from 'yup'
-import { mdiCar } from '@mdi/js'
+import { mdiAccount, mdiCar, mdiGasStation, mdiMail } from '@mdi/js'
 import Button from 'components/Button'
 import CardBox from 'components/CardBox'
 import SectionMain from 'components/Section/Main'
 import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
-import { Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getPageTitle } from 'src/config'
 import { fetchOneVehicle } from 'src/hooks/vehicleData'
 import { Vehicle } from 'interfaces/vehicles'
+import FormField from 'components/Form/Field'
+import CardBoxComponentBody from 'components/CardBox/Component/Body'
+import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
+import Buttons from 'components/Buttons'
 
 const EditVehicle = () => {
   const [editVehicleData, setEditVehicleData] = useState({
@@ -22,7 +26,7 @@ const EditVehicle = () => {
   const { id } = router.query;
 
   console.log('vehicle id = ' + id); // TODO - удалить
-  const AddVehicleValidationSchema = Yup.object().shape({
+  const EditVehicleValidationSchema = Yup.object().shape({
     model: Yup.string()
       .min(2, 'Model is too short!')
       .max(50, 'Model is too long!')
@@ -87,7 +91,7 @@ const EditVehicle = () => {
     try {
       setLoading(true);
       const response = await EditVehicle(editVehicleData);
-      if (response.status === 201) {
+      if (response.status === 200) {
         setLoading(false);
         console.log('a vehicle is updated')
         // showSuccessToast();
@@ -113,20 +117,129 @@ const EditVehicle = () => {
           <Formik
           initialValues={{
               vehicleId: -1,
-              model: '',
-              weightCapacity: 0,
-              fuelType: '',
-              rangeWithCargo: 0,
-              rangeWithOutCargo: 0,
-              fuelConsumptionWithCargo: 0,
-              usefulArea: 0,
-              costOfDelivery: 0,
-              status: '',
+              model: vehicle.model,
+              weightCapacity: vehicle.weightCapacity,
+              fuelType: vehicle.fuelType,
+              rangeWithCargo: vehicle.rangeWithCargo,
+              rangeWithOutCargo: vehicle.rangeWithoutCargo,
+              fuelConsumptionWithCargo: vehicle.fuelConsumptionWithCargo,
+              usefulArea: vehicle.usefulArea,
+              costOfDelivery: vehicle.costOfDelivery,
+              status: vehicle.status,
             }}
-             validationSchema={AddVehicleValidationSchema}
+             validationSchema={EditVehicleValidationSchema}
              onSubmit={handleSubmit}>
+
+{({ errors, touched }) => (
+              <Form className="flex flex-col flex-1">
+                <CardBoxComponentBody>
+                  <div className="grid grid-cols-2 gap-6">
+                    <FormField
+                      label="Model"
+                      labelFor="model"
+                      icons={[mdiAccount]}
+                      errors={[errors.model && touched.model ? errors.model : null]}
+                    >
+                      <Field name="model" id="model" placeholder="Model" />
+                    </FormField>
+
+                    <FormField
+                      label="Weight Capacity"
+                      labelFor="weightCapacity"
+                      icons={[mdiMail]}
+                      errors={[errors.weightCapacity && touched.weightCapacity ? errors.weightCapacity : null]}
+                    >
+                      <Field name="weightCapacity" id="weightCapacity" placeholder="Weight Capacity" />
+                    </FormField>
+
+                    <FormField
+                      label="Fuel Type"
+                      labelFor="fuelType"
+                      icons={[mdiGasStation]}
+                      errors={[errors.fuelType && touched.fuelType ? errors.fuelType : null]}
+                    >
+                      <Field name="fuelType" id="fuelType" placeholder="Fuel Type" component="select">
+                        <option value="">Please select fuel type</option>
+                        <option value="electric">Electric</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="gasoline">Gasoline</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="natural_gas">Natural Gas</option>
+                      </Field>
+                    </FormField>
+
+                    <FormField
+                      label="Range with Cargo"
+                      labelFor="rangeWithCargo"
+                      icons={[mdiMail]}
+                      errors={[errors.rangeWithCargo && touched.rangeWithCargo ? errors.rangeWithCargo : null]}
+                    >
+                      <Field name="rangeWithCargo" id="rangeWithCargo" placeholder="Range with Cargo" />
+                    </FormField>
+
+                    <FormField
+                      label="Range without Cargo"
+                      labelFor="rangeWithOutCargo"
+                      icons={[mdiAccount]}
+                      errors={[errors.rangeWithOutCargo && touched.rangeWithOutCargo ? errors.rangeWithOutCargo : null]}
+                    >
+                      <Field name="rangeWithOutCargo" id="rangeWithOutCargo" placeholder="Range without Cargo" />
+                    </FormField>
+
+                    <FormField
+                      label="Fuel Consumption with Cargo"
+                      labelFor="fuelConsumptionWithCargo"
+                      icons={[mdiMail]}
+                      errors={[errors.fuelConsumptionWithCargo && touched.fuelConsumptionWithCargo ? errors.fuelConsumptionWithCargo : null]}
+                    >
+                      <Field name="fuelConsumptionWithCargo" id="fuelConsumptionWithCargo" placeholder="Fuel Consumption with Cargo" />
+                    </FormField>
+
+                    <FormField
+                      label="Useful Area"
+                      labelFor="usefulArea"
+                      icons={[mdiGasStation]}
+                      errors={[errors.usefulArea && touched.usefulArea ? errors.usefulArea : null]}
+                    >
+                      <Field name="usefulArea" id="usefulArea" placeholder="Useful Area" />
+                    </FormField>
+
+                    <FormField
+                      label="Cost of Delivery"
+                      labelFor="costOfDelivery"
+                      icons={[mdiMail]}
+                      errors={[errors.costOfDelivery && touched.costOfDelivery ? errors.costOfDelivery : null]}
+                    >
+                      <Field name="costOfDelivery" id="costOfDelivery" placeholder="Cost of Delivery" />
+                    </FormField>
+
+                    <FormField
+                      label="Status"
+                      labelFor="status"
+                      icons={[mdiAccount]}
+                      errors={[errors.status && touched.status ? errors.status : null]}
+                    >
+                       <Field name="status" id="status" placeholder="status" component="select">
+                        <option value="">Please select status</option>
+                        <option value="OK">OK</option>
+                        <option value="IN_REPAIR">IN_REPAIR</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                      </Field>
+                    </FormField>
+                  </div>
+                </CardBoxComponentBody>
+                <CardBoxComponentFooter>
+                  <Buttons>
+                    <Button color="info" type="submit" label="Submit" />
+      
+                    <Button color="info" type="reset" label="Reset" outline />
+                  </Buttons>
+                </CardBoxComponentFooter>
+              </Form>
+            )}
               </Formik>
               </CardBox>
+              
           <Button
             href={`/vehicles/${id}`}
             // target="_blank"
@@ -144,6 +257,7 @@ const EditVehicle = () => {
   );
 };
 export default EditVehicle;
+
 function setLoading(arg0: boolean) {
   throw new Error('Function not implemented.')
 }
