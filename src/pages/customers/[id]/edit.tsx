@@ -16,6 +16,7 @@ import { getPageTitle } from "src/config";
 import { fetchOneCustomer } from "src/hooks/customerData";
 import { editOneCustomer } from "src/hooks/editCustomerData";
 import * as Yup from 'yup';
+import editCustomerAsync from "../add/editCustomerAsync";
 
 
 
@@ -108,7 +109,7 @@ const EditCustomer = (editCustomerData: Customer) => {
         try {
             // setLoading(true);
             console.log (JSON.stringify(customerData, null, 2))
-            const response = await editOneCustomer(customerData);
+            const response = await editCustomerAsync(customerData);
             if (response.status === 200) {
                 // setLoading(false);
                 console.log('a customer is updated')
@@ -141,38 +142,6 @@ const EditCustomer = (editCustomerData: Customer) => {
                         small
                     />
                 </SectionTitleLineWithButton>
-
-                {/* <div className="text-left mx-auto max-w-4xl">
-                    <p className="text-2xl font-bold">Customer Information</p>
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Tax Identification Number</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.taxIdentificationNumber}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Company Name</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.companyName}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Legal Address</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.legalAddress}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Postal Code</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.postalCode}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Country</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.country}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Email</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{customer.email}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> */}
 
                 <CardBox>
                     <Formik
