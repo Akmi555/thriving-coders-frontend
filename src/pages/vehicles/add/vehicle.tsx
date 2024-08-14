@@ -34,7 +34,7 @@ const AddNewVehiclePage = () => {
       .required('Model is required!'),
     weightCapacity: Yup.number()
       .min(2, 'Weight capacity is too small')
-      .max(5000, 'Weight capacity is too big')
+      .max(40000, 'Weight capacity is too big')
       .required('Weight capacity is required!'),
     fuelType: Yup.string().required('Fuel type is required!'),
     rangeWithCargo: Yup.number()

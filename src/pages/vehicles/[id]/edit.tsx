@@ -15,6 +15,7 @@ import FormField from 'components/Form/Field'
 import CardBoxComponentBody from 'components/CardBox/Component/Body'
 import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
 import Buttons from 'components/Buttons'
+import editVehicleAsync from '../add/editVehicleAsync'
 
 const EditVehicle = () => {
   const [editVehicleData, setEditVehicleData] = useState({
@@ -33,7 +34,7 @@ const EditVehicle = () => {
       .required('Model is required!'),
     weightCapacity: Yup.number()
       .min(2, 'Weight capacity is too small')
-      .max(10000, 'Weight capacity is too big')
+      .max(20000, 'Weight capacity is too big')
       .required('Weight capacity is required!'),
     fuelType: Yup.string().required('Fuel type is required!'),
     rangeWithCargo: Yup.number()
@@ -89,8 +90,8 @@ const EditVehicle = () => {
   const vehicle = editVehicleData.vehicle;
   const handleSubmit = async (vehicleData: Vehicle) => {
     try {
-      setLoading(true);
-      const response = await EditVehicle(editVehicleData);
+      //setLoading(true);
+      const response = await editVehicleAsync(vehicleData);
       if (response.status === 200) {
         setLoading(false);
         console.log('a vehicle is updated')
@@ -100,7 +101,7 @@ const EditVehicle = () => {
       }
 
     } catch (error) {
-      setLoading(false);
+      //setLoading(false);
       console.log('a vehicle is NOT saved')
     }
   }
@@ -126,7 +127,7 @@ const EditVehicle = () => {
           <CardBox>
           <Formik
           initialValues={{
-              vehicleId: -1,
+              vehicleId: vehicle.vehicleId,
               model: vehicle.model,
               weightCapacity: vehicle.weightCapacity,
               fuelType: vehicle.fuelType,
@@ -248,10 +249,7 @@ const EditVehicle = () => {
               </Form>
             )}
               </Formik>
-              </CardBox>
-              
-          
-      
+              </CardBox>  
         
       </SectionMain>
     </>
@@ -259,7 +257,4 @@ const EditVehicle = () => {
 };
 export default EditVehicle;
 
-function setLoading(arg0: boolean) {
-  throw new Error('Function not implemented.')
-}
 
