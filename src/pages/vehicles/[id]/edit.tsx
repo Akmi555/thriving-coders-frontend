@@ -33,7 +33,7 @@ const EditVehicle = () => {
       .required('Model is required!'),
     weightCapacity: Yup.number()
       .min(2, 'Weight capacity is too small')
-      .max(5000, 'Weight capacity is too big')
+      .max(10000, 'Weight capacity is too big')
       .required('Weight capacity is required!'),
     fuelType: Yup.string().required('Fuel type is required!'),
     rangeWithCargo: Yup.number()
@@ -113,7 +113,17 @@ const EditVehicle = () => {
       </Head>
       <SectionMain>
       <SectionTitleLineWithButton icon={mdiCar} title="Edit specific vehicle" main>
-        <CardBox>
+      <Button
+            href={`/vehicles/${id}`}
+            // target="_blank"
+            icon={mdiCar}
+            label="Back to specific vehicle"
+            color="contrast"
+            roundedFull
+            small
+          />
+        </SectionTitleLineWithButton>
+          <CardBox>
           <Formik
           initialValues={{
               vehicleId: -1,
@@ -121,7 +131,7 @@ const EditVehicle = () => {
               weightCapacity: vehicle.weightCapacity,
               fuelType: vehicle.fuelType,
               rangeWithCargo: vehicle.rangeWithCargo,
-              rangeWithOutCargo: vehicle.rangeWithoutCargo,
+              rangeWithOutCargo: vehicle.rangeWithOutCargo,
               fuelConsumptionWithCargo: vehicle.fuelConsumptionWithCargo,
               usefulArea: vehicle.usefulArea,
               costOfDelivery: vehicle.costOfDelivery,
@@ -138,7 +148,7 @@ const EditVehicle = () => {
                       label="Model"
                       labelFor="model"
                       icons={[mdiAccount]}
-                      errors={[errors.model && touched.model ? errors.model : null]}
+                    errors={[errors.model && touched.model ? errors.model : null]}
                     >
                       <Field name="model" id="model" placeholder="Model" />
                     </FormField>
@@ -160,11 +170,11 @@ const EditVehicle = () => {
                     >
                       <Field name="fuelType" id="fuelType" placeholder="Fuel Type" component="select">
                         <option value="">Please select fuel type</option>
-                        <option value="electric">Electric</option>
-                        <option value="diesel">Diesel</option>
-                        <option value="gasoline">Gasoline</option>
-                        <option value="hybrid">Hybrid</option>
-                        <option value="natural_gas">Natural Gas</option>
+                        <option value="ELECTRIC">Electric</option>
+                        <option value="DIESEL">Diesel</option>
+                        <option value="GASOLINE">Gasoline</option>
+                        <option value="HYBRID">Hybrid</option>
+                        <option value="NATURAL_GAS">Natural Gas</option>
                       </Field>
                     </FormField>
 
@@ -222,8 +232,8 @@ const EditVehicle = () => {
                        <Field name="status" id="status" placeholder="status" component="select">
                         <option value="">Please select status</option>
                         <option value="OK">OK</option>
-                        <option value="IN_REPAIR">IN_REPAIR</option>
-                        <option value="INACTIVE">INACTIVE</option>
+                        <option value="IN_REPAIR">In repair</option>
+                        <option value="INACTIVE">Inactive</option>
                       </Field>
                     </FormField>
                   </div>
@@ -240,16 +250,7 @@ const EditVehicle = () => {
               </Formik>
               </CardBox>
               
-          <Button
-            href={`/vehicles/${id}`}
-            // target="_blank"
-            icon={mdiCar}
-            label="Back to specific vehicle"
-            color="contrast"
-            roundedFull
-            small
-          />
-        </SectionTitleLineWithButton>
+          
       
         
       </SectionMain>
