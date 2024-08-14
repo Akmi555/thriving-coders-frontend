@@ -14,12 +14,13 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { getPageTitle } from "src/config";
 import { fetchOneCustomer } from "src/hooks/customerData";
+import { editOneCustomer } from "src/hooks/editCustomerData";
 import * as Yup from 'yup';
 
 
 
 
-const EditCustomer = (editCustomerData: any) => {//TODO question is needed
+const EditCustomer = (editCustomerData: Customer) => {
     const [EditCustomerData, setEditCustomerData] = useState({
         customer: null,
         isLoading: true,
@@ -99,16 +100,17 @@ const EditCustomer = (editCustomerData: any) => {//TODO question is needed
     }
 
     const customer = EditCustomerData.customer;
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    // const [loading, setLoading] = useState(false);
+    // const [error, setError] = useState('');
     
     // const handleSubmit =() => {console.log("VasyaPupkin")};
     const handleSubmit = async (customerData: Customer) => {
         try {
-            setLoading(true);
-            const response = await editCustomerData(customerData);
+            // setLoading(true);
+            console.log (JSON.stringify(customerData, null, 2))
+            const response = await editOneCustomer(customerData);
             if (response.status === 200) {
-                setLoading(false);
+                // setLoading(false);
                 console.log('a customer is updated')
                 // showSuccessToast();
             } else {
@@ -117,7 +119,7 @@ const EditCustomer = (editCustomerData: any) => {//TODO question is needed
             }
 
         } catch (error) {
-            setLoading(false);
+            // setLoading(false);
             console.log('Error updating customer')
         }
     };
@@ -140,7 +142,7 @@ const EditCustomer = (editCustomerData: any) => {//TODO question is needed
                     />
                 </SectionTitleLineWithButton>
 
-                <div className="text-left mx-auto max-w-4xl">
+                {/* <div className="text-left mx-auto max-w-4xl">
                     <p className="text-2xl font-bold">Customer Information</p>
                     <table className="min-w-full divide-y divide-gray-200">
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -170,7 +172,7 @@ const EditCustomer = (editCustomerData: any) => {//TODO question is needed
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> */}
 
                 <CardBox>
                     <Formik
