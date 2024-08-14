@@ -148,8 +148,8 @@ const Customer = () => {
               />
               <Button
                 color="info"
-                icon={mdiTruckDelivery}
-                href={`/customers/${id}/deliveryAddresses`}//TODO
+                href={`/customers/${id}/edit`}//TODO
+                icon={mdiAccountClock}
                 outline={values.outline}
                 small={values.small}
                 roundedFull={values.rounded}
