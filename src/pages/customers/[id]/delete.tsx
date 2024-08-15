@@ -8,6 +8,8 @@ import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
 import { Head } from "next/document";
 import { getPageTitle } from "src/config";
+import deleteCustomerAsync from "../add/deleteCustomerAsync";
+
 
 const DeleteCustomer = () => {
     const router = useRouter();
@@ -65,6 +67,7 @@ const DeleteCustomer = () => {
         </>
       )
     }
+    export default DeleteCustomer;
     
 
 //     // Define the deleteCustomerAsync function
@@ -105,4 +108,4 @@ const DeleteCustomer = () => {
 //     return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
 // };
 
-export default DeleteCustomer;
+
