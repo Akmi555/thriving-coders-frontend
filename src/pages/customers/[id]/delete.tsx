@@ -2,13 +2,16 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import LayoutAuthenticated from "src/layouts/Authenticated";
 import Button from "components/Button";
-import { mdiAccount } from "@mdi/js";
+import { mdiAccount, mdiAccountPlus } from "@mdi/js";
 import CardBoxModal from "components/CardBox/Modal";
 import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
 import Head from 'next/head'
 import { getPageTitle } from "src/config";
 import deleteCustomerAsync from "../add/deleteCustomerAsync";
+import Icon from "components/Icon";
+import { toast, Bounce, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -17,18 +20,57 @@ const DeleteCustomer = () => {
   const router = useRouter();
   const { id } = router.query;
   const [isModalInfoActive, setIsModalInfoActive] = useState(true)
-  
-  const deleteCustomer = async () => {
-    deleteCustomerAsync(id)
+  const showSuccessToast = (message) => {
+    toast.success(message, {
+      icon: <Icon path={mdiAccountPlus} size={48} />,
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light", // TODO correct theme, if dark mode on
+      transition: Bounce,
+    });
+  };
+
+  const showErrorToast = (errorMessage) => {
+    toast.error(errorMessage, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   }
+
+  const deleteCustomer = async () => {
+    try {
+      const response = await deleteCustomerAsync(id)
+      if (response.status === 200) {
+        showSuccessToast('Customer successfully deleted')  
+        setTimeout(() => router.push("/customers"), 3000)
+      }
+    } catch (error) {
+      showErrorToast("error when delete customer")
+    }
+  }
+
   const handleDeleteAction = () => {
     deleteCustomer()
     setIsModalInfoActive(false)
   }
+
+
   const handleCancelAction = () => {
     setIsModalInfoActive(false)
   }
-  
+
   const modalSampleContents = (
     <>
       <p>
@@ -66,49 +108,10 @@ const DeleteCustomer = () => {
         >
           {modalSampleContents}
         </CardBoxModal>
+        <ToastContainer />
       </SectionMain>
     </>
   )
 }
 export default DeleteCustomer;
-
-
-//     // Define the deleteCustomerAsync function
-//     const deleteCustomerAsync = async (customerId: string) => {
-//         try {
-//             const response = await fetch(`/api/customers/${customerId}`, {
-//                 method: 'DELETE',
-//             });
-
-//             if (!response.ok) {
-//                 throw new Error('Failed to delete customer');
-//             }
-
-//             console.log('Customer deleted successfully');
-//         } catch (error) {
-//             console.error('Error deleting customer:', error);
-//         }
-//     };
-
-//     useEffect(() => {
-//         if (id) {
-//             deleteCustomerAsync(id as string); // Ensure id is treated as a string
-//         }
-//     }, [id, router]);
-
-//     return (
-//         <>
-//             <div>
-//                 <h1>Deleting Customer {id}</h1>
-//                 <p>Click to return to the dashboard...</p>
-//                 <Button href="/dashboard" label="Go to Dashboard" />
-//             </div>
-//         </>
-//     );
-// };
-
-// DeleteCustomer.getLayout = function getLayout(page: ReactElement) {
-//     return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
-// };
-
 
