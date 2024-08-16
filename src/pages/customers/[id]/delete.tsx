@@ -6,69 +6,72 @@ import { mdiAccount } from "@mdi/js";
 import CardBoxModal from "components/CardBox/Modal";
 import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
-import { Head } from "next/document";
+import Head from 'next/head'
 import { getPageTitle } from "src/config";
 import deleteCustomerAsync from "../add/deleteCustomerAsync";
 
 
-const DeleteCustomer = () => {
-    const router = useRouter();
-    const { id } = router.query;
 
-    const deleteCustomer = async () => {
-        deleteCustomerAsync(id)
-      }
-      const handleDeleteAction = () => {
-        deleteCustomer()
-        setIsModalInfoActive(false)
-      }
-      const handleCancelAction = () => {
-        setIsModalInfoActive(false)
-      }
-      const [isModalInfoActive, setIsModalInfoActive] = useState(true)
-      const modalSampleContents = (
-        <>
-          <p>
-            Would you like to delete this customer <b>really delete?</b>
-          </p>
-          <p>In this case you will not be able to return it back</p>
-        </>
-      )
-    
-      return (
-        <>
-          <Head>
-            <title>{getPageTitle('Delete customer')}</title>
-          </Head>
-          <SectionMain>
-            <SectionTitleLineWithButton icon={mdiAccount} title="Delete specific customer" main>
-              <Button
-                //href={`/customers/${id}`}
-                href={`/customers/`}
-                // target="_blank"
-                icon={mdiAccount}
-                label="Back to existing customers"
-                color="contrast"
-                roundedFull
-                small
-              />
-            </SectionTitleLineWithButton>
-            <CardBoxModal
-              title="Please confirm action"
-              buttonColor="danger"
-              buttonLabel="Delete"
-              isActive={isModalInfoActive}
-              onConfirm={handleDeleteAction}
-              onCancel={handleCancelAction}
-            >
-              {modalSampleContents}
-            </CardBoxModal>
-          </SectionMain>
-        </>
-      )
-    }
-    export default DeleteCustomer;
-    
+
+const DeleteCustomer = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const [isModalInfoActive, setIsModalInfoActive] = useState(true)
+  
+  const deleteCustomer = async () => {
+    deleteCustomerAsync(id)
+  }
+  const handleDeleteAction = () => {
+    deleteCustomer()
+    setIsModalInfoActive(false)
+  }
+  const handleCancelAction = () => {
+    setIsModalInfoActive(false)
+  }
+  
+  const modalSampleContents = (
+    <>
+      <p>
+        Would you like to delete this customer <b>really delete?</b>
+      </p>
+      <p>In this case you will not be able to return it back</p>
+    </>
+  )
+
+  return (
+    <>
+      <Head>
+        <title>{getPageTitle('Delete customer')}</title>
+      </Head>
+      <SectionMain>
+        <SectionTitleLineWithButton icon={mdiAccount} title="Delete specific customer" main>
+          <Button
+            //href={`/customers/${id}`}
+            href={`/customers/`}
+            // target="_blank"
+            icon={mdiAccount}
+            label="Back to existing customers"
+            color="contrast"
+            roundedFull
+            small
+          />
+        </SectionTitleLineWithButton>
+        <CardBoxModal
+          title="Please confirm action"
+          buttonColor="danger"
+          buttonLabel="Delete"
+          isActive={isModalInfoActive}
+          onConfirm={handleDeleteAction}
+          onCancel={handleCancelAction}
+        >
+          {modalSampleContents}
+        </CardBoxModal>
+      </SectionMain>
+    </>
+  )
+}
+export default DeleteCustomer;
+
 
 //     // Define the deleteCustomerAsync function
 //     const deleteCustomerAsync = async (customerId: string) => {
