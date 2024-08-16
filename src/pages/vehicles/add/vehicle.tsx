@@ -1,5 +1,6 @@
 import {
   mdiAccount,
+  mdiAccountPlus,
   mdiCar,
   mdiGasStation,
   mdiGithub,
@@ -22,6 +23,8 @@ import { getPageTitle } from 'src/config'
 import { Vehicle } from 'interfaces/vehicles'
 import { useState } from 'react'
 import addNewVehicle from './addNewVehicle'
+import Icon from 'components/Icon'
+import { Bounce, toast } from 'react-toastify'
 
 const AddNewVehiclePage = () => {
   const [loading, setLoading] = useState(false);
@@ -53,6 +56,21 @@ const AddNewVehiclePage = () => {
     status: Yup.string().min(2, 'Status is too small').required('Status is required'),
   })
 
+  const showSuccessToast = () => {
+    toast.success('New vehicle successfully added!', {
+        icon: <Icon path={mdiAccountPlus} size={48} />,
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light", // TODO correct theme, if dark mode on
+        transition: Bounce,
+    });
+};
+
   const handleSubmit = async (vehicleData: Vehicle) => {
     try {
       setLoading(true);
@@ -60,7 +78,7 @@ const AddNewVehiclePage = () => {
       if (response.status === 201) {
         setLoading(false);
         console.log('a vehicle is saved')
-        // showSuccessToast();
+        showSuccessToast();
       } else {
         // handle other statuses
       }
