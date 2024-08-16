@@ -16,7 +16,7 @@ import { getPageTitle } from "src/config";
 import { fetchOneCustomer } from "src/hooks/customerData";
 import { editOneCustomer } from "src/hooks/editCustomerData";
 import * as Yup from 'yup';
-import editCustomerAsync from "../add/editCustomerAsync";
+import editCustomerAsync from "./editCustomerAsync";
 
 
 

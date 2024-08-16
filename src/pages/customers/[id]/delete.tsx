@@ -8,7 +8,7 @@ import SectionMain from "components/Section/Main";
 import SectionTitleLineWithButton from "components/Section/TitleLineWithButton";
 import Head from 'next/head'
 import { getPageTitle } from "src/config";
-import deleteCustomerAsync from "../add/deleteCustomerAsync";
+import deleteCustomerAsync from "./deleteCustomerAsync";
 import Icon from "components/Icon";
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
