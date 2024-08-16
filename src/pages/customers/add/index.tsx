@@ -16,9 +16,11 @@ import Icon from 'components/Icon';
 import { Customer } from 'interfaces/customer';
 import { useState } from 'react';
 import addNewCustomer from './addNewCustomer';
+import { useRouter } from 'next/router';
 
 
 const AddNewCustomerPage = () => {
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -70,11 +72,11 @@ const AddNewCustomerPage = () => {
         });
     };
 
-    const showSuccessToast = () => {
-        toast.success('New customer successfully added!', {
+    const showSuccessToast = (message) => {
+        toast.success(message, {
             icon: <Icon path={mdiAccountPlus} size={48} />,
             position: "bottom-right",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -106,7 +108,8 @@ const AddNewCustomerPage = () => {
             const response = await addNewCustomer(customerData);             
             if (response.status === 201) {
                 setLoading(false);
-                showSuccessToast();
+                showSuccessToast('New customer successfully added!');
+                setTimeout(() => router.push("/customers"), 3000)
             } else {
                 // if another status
             }
