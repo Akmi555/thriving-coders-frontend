@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { mdiAccount, mdiCar, mdiGasStation, mdiMail } from '@mdi/js'
+import { mdiAccount, mdiAccountPlus, mdiCar, mdiGasStation, mdiMail } from '@mdi/js'
 import Button from 'components/Button'
 import CardBox from 'components/CardBox'
 import SectionMain from 'components/Section/Main'
@@ -16,6 +16,8 @@ import CardBoxComponentBody from 'components/CardBox/Component/Body'
 import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
 import Buttons from 'components/Buttons'
 import editVehicleAsync from '../add/editVehicleAsync'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
+import Icon from 'components/Icon'
 
 const EditVehicle = () => {
   const [editVehicleData, setEditVehicleData] = useState({
@@ -87,14 +89,31 @@ const EditVehicle = () => {
     return <div>Error loading vehicle data</div>;
   }
 
+
+  const showSuccessToast = () => {
+    toast.success('New vehicle successfully added!', {
+        icon: <Icon path={mdiAccountPlus} size={48} />,
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light", // TODO correct theme, if dark mode on
+        transition: Bounce,
+    });
+};
+
   const vehicle = editVehicleData.vehicle;
   const handleSubmit = async (vehicleData: Vehicle) => {
     try {
-      //setLoading(true);
+      setLoading(true);
       const response = await editVehicleAsync(vehicleData);
       if (response.status === 200) {
         setLoading(false);
         console.log('a vehicle is updated')
+        showSuccessToast();
         // showSuccessToast();
       } else {
         // handle other statuses
@@ -102,7 +121,7 @@ const EditVehicle = () => {
 
     } catch (error) {
       //setLoading(false);
-      console.log('a vehicle is NOT saved')
+      console.log('a vehicle is NOT updated')
     }
   }
 
@@ -249,6 +268,7 @@ const EditVehicle = () => {
               </Form>
             )}
               </Formik>
+              <ToastContainer />
               </CardBox>  
         
       </SectionMain>
@@ -257,4 +277,8 @@ const EditVehicle = () => {
 };
 export default EditVehicle;
 
+
+function setLoading(arg0: boolean) {
+  throw new Error('Function not implemented.')
+}
 

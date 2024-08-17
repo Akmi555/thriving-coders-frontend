@@ -9,6 +9,8 @@ import {
 import * as Yup from 'yup'
 import { Formik, Form, Field } from 'formik'
 import Head from 'next/head'
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Button from 'components/Button'
 import Buttons from 'components/Buttons'
 import CardBox from 'components/CardBox'
@@ -17,14 +19,12 @@ import CardBoxComponentFooter from 'components/CardBox/Component/Footer'
 import FormField from 'components/Form/Field'
 import SectionMain from 'components/Section/Main'
 import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
-import CardBoxUser from 'components/CardBox/User'
-import { useAppSelector } from 'src/stores/hooks'
 import { getPageTitle } from 'src/config'
 import { Vehicle } from 'interfaces/vehicles'
 import { useState } from 'react'
 import addNewVehicle from './addNewVehicle'
 import Icon from 'components/Icon'
-import { Bounce, toast } from 'react-toastify'
+import Divider from 'components/Divider'
 
 const AddNewVehiclePage = () => {
   const [loading, setLoading] = useState(false);
@@ -71,7 +71,8 @@ const AddNewVehiclePage = () => {
     });
 };
 
-  const handleSubmit = async (vehicleData: Vehicle) => {
+
+const handleSubmit = async (vehicleData: Vehicle) => {
     try {
       setLoading(true);
       const response = await addNewVehicle(vehicleData);
@@ -97,7 +98,7 @@ const AddNewVehiclePage = () => {
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiCar} title="Add new vehicle+++" main>
+        <SectionTitleLineWithButton icon={mdiCar} title="Add new vehicle" main>
           <Button
             href="/vehicles/"
             //target="_blank"
@@ -240,6 +241,7 @@ const AddNewVehiclePage = () => {
                   </div>
                 </CardBoxComponentBody>
                 <CardBoxComponentFooter>
+                  <Divider/>
                   <Buttons>
                     <Button color="info" type="submit" label="Submit" />
       
@@ -249,6 +251,8 @@ const AddNewVehiclePage = () => {
               </Form>
             )}
           </Formik>
+          <ToastContainer />
+
         </CardBox>
       </SectionMain>
     </>

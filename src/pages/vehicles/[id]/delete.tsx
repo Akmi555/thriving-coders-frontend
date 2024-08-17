@@ -9,15 +9,57 @@ import { getPageTitle } from 'src/config'
 import Head from 'next/head'
 import SectionMain from 'components/Section/Main'
 import SectionTitleLineWithButton from 'components/Section/TitleLineWithButton'
-import { mdiCar } from '@mdi/js'
+import { mdiAccountPlus, mdiCar } from '@mdi/js'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
+import Icon from 'components/Icon'
 
 const DeleteVehicle = () => {
+  
   const router = useRouter()
   const { id } = router.query
-  //
-  const deleteVehicle = async () => {
-    deleteVehicleAsync(id)
+  const [isModalInfoActive, setIsModalInfoActive] = useState(true)
+  const showSuccessToast = (message) => {
+    toast.success(message, {
+      icon: <Icon path={mdiAccountPlus} size={48} />,
+      position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light", // TODO correct theme, if dark mode on
+      transition: Bounce,
+    });
+  };
+  const showErrorToast = (errorMessage) => {
+    toast.error(errorMessage, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   }
+
+  const deleteVehicle = async () => {
+    try {
+      const response = await deleteVehicleAsync(id)
+      if (response.status === 200) {
+        showSuccessToast('Vehicle successfully deleted')  
+        setTimeout(() => router.push("/vehicles"), 3000)
+      }
+    } catch (error) {
+      showErrorToast("error when delete vehicle")
+    }
+  }
+
+  //
+
   const handleDeleteAction = () => {
     deleteVehicle()
     setIsModalInfoActive(false)
@@ -25,7 +67,7 @@ const DeleteVehicle = () => {
   const handleCancelAction = () => {
     setIsModalInfoActive(false)
   }
-  const [isModalInfoActive, setIsModalInfoActive] = useState(true)
+  
   const modalSampleContents = (
     <>
       <p>
@@ -63,6 +105,7 @@ const DeleteVehicle = () => {
         >
           {modalSampleContents}
         </CardBoxModal>
+        <ToastContainer />
       </SectionMain>
     </>
   )
