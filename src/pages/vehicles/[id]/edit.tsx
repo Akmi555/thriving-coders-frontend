@@ -105,7 +105,7 @@ const EditVehicle = () => {
     });
 };
 
-  const vehicle = editVehicleData.vehicle;
+  const vehicle : Vehicle = editVehicleData.vehicle;
   const handleSubmit = async (vehicleData: Vehicle) => {
     try {
       setLoading(true);
@@ -168,8 +168,7 @@ const EditVehicle = () => {
                       label="Model"
                       labelFor="model"
                       icons={[mdiAccount]}
-                    //errors={[errors.model && touched.model ? errors.model : null]}
-                    errors={[errors.model]}
+                      errors={[errors.model && touched.model ? errors.model : null]}                  
                     >
                       <Field name="model" id="model" placeholder="Model" />
                     </FormField>
