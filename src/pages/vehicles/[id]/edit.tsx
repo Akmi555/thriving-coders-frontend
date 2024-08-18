@@ -18,6 +18,7 @@ import Buttons from 'components/Buttons'
 import editVehicleAsync from '../add/editVehicleAsync'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import Icon from 'components/Icon'
+import Divider from 'components/Divider'
 
 const EditVehicle = () => {
   const [editVehicleData, setEditVehicleData] = useState({
@@ -260,6 +261,7 @@ const EditVehicle = () => {
                   </div>
                 </CardBoxComponentBody>
                 <CardBoxComponentFooter>
+                  <Divider/>
                   <Buttons>
                     <Button color="info" type="submit" label="Submit" />
       
