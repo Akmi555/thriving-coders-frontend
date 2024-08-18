@@ -1,4 +1,4 @@
-import { mdiAccount, mdiAccountOutline } from "@mdi/js";
+import { mdiAccount, mdiAccountOutline, mdiAccountPlus } from "@mdi/js";
 import Button from "components/Button";
 import Buttons from "components/Buttons";
 import CardBox from "components/CardBox";
@@ -11,12 +11,14 @@ import { Customer } from "interfaces/customer";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import { getPageTitle } from "src/config";
 import { fetchOneCustomer } from "src/hooks/customerData";
 import { editOneCustomer } from "src/hooks/editCustomerData";
 import * as Yup from 'yup';
 import editCustomerAsync from "./editCustomerAsync";
+import Icon from "components/Icon";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -32,6 +34,36 @@ const EditCustomer = (editCustomerData: Customer) => {
     const { id } = router.query;
 
     console.log('customer id = ' + id); // TODO - удалить
+    
+    const showSuccessToast = (message) => {
+        toast.success(message, {
+          icon: <Icon path={mdiAccountPlus} size={48} />,
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light", // TODO correct theme, if dark mode on
+          transition: Bounce,
+        });
+      };
+    
+      const showErrorToast = (errorMessage) => {
+        toast.error(errorMessage, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+    
 
     const EditCustomerValidationSchema = Yup.object().shape(
         {
@@ -108,20 +140,24 @@ const EditCustomer = (editCustomerData: Customer) => {
     const handleSubmit = async (customerData: Customer) => {
         try {
             // setLoading(true);
-            console.log (JSON.stringify(customerData, null, 2))
+            // console.log (JSON.stringify(customerData, null, 2))
             const response = await editCustomerAsync(customerData);
             if (response.status === 200) {
-                // setLoading(false);
-                console.log('a customer is updated')
-                // showSuccessToast();
-            } else {
-                console.log('Failed to update customer');
-
+                showSuccessToast('Customer successfully updated')  
+                setTimeout(() => router.push("/customers"), 3000)
             }
+                // setLoading(false);
+                // console.log('a customer is updated')
+                // showSuccessToast();
+            // } else {
+            //     console.log('Failed to update customer');
+
+            // }
 
         } catch (error) {
+            showErrorToast("error when update customer")
             // setLoading(false);
-            console.log('Error updating customer')
+            // console.log('Error updating customer')
         }
     };
 
