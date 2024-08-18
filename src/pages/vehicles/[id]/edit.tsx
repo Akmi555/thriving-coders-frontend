@@ -168,7 +168,8 @@ const EditVehicle = () => {
                       label="Model"
                       labelFor="model"
                       icons={[mdiAccount]}
-                    errors={[errors.model && touched.model ? errors.model : null]}
+                    //errors={[errors.model && touched.model ? errors.model : null]}
+                    errors={[errors.model]}
                     >
                       <Field name="model" id="model" placeholder="Model" />
                     </FormField>
