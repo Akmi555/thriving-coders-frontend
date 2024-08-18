@@ -74,7 +74,7 @@ const DeleteCustomer = () => {
   const modalSampleContents = (
     <>
       <p>
-        Would you like to delete this customer <b>really delete?</b>
+        Would you like really to delete this customer?
       </p>
       <p>In this case you will not be able to return it back</p>
     </>
