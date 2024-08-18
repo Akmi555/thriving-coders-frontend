@@ -19,6 +19,7 @@ import editVehicleAsync from '../add/editVehicleAsync'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import Icon from 'components/Icon'
 import Divider from 'components/Divider'
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditVehicle = () => {
   const [editVehicleData, setEditVehicleData] = useState({
@@ -26,10 +27,10 @@ const EditVehicle = () => {
     isLoading: true,
     isError: false,
   })
-  const router = useRouter();
-  const { id } = router.query;
+  const router = useRouter()
+  const { id } = router.query
 
-  console.log('vehicle id = ' + id); // TODO - удалить
+  console.log('vehicle id = ' + id) // TODO - удалить
   const EditVehicleValidationSchema = Yup.object().shape({
     model: Yup.string()
       .min(2, 'Model is too short!')
@@ -49,92 +50,102 @@ const EditVehicle = () => {
     fuelConsumptionWithCargo: Yup.number()
       .min(10, 'Fuel consumption with Cargo is too small')
       .required('Fuel consumption with Cargo is required'),
-    usefulArea: Yup.number().min(10, 'Useful area is too small').required('Useful area is required'),
+    usefulArea: Yup.number()
+      .min(10, 'Useful area is too small')
+      .required('Useful area is required'),
     costOfDelivery: Yup.number()
       .min(2, 'Cost of delivery is too small')
       .required('Cost of delivery is required'),
     status: Yup.string().min(2, 'Status is too small').required('Status is required'),
   })
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchOneVehicle(id);
-        console.log(result);
+        const result = await fetchOneVehicle(id)
+        console.log(result)
         setEditVehicleData({
           vehicle: result.vehicle,
           isLoading: false,
           isError: result.isError,
-        });
+        })
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
         setEditVehicleData({
           vehicle: null,
           isLoading: false,
           isError: true,
-        });
+        })
       }
-    };
+    }
 
     if (id) {
-      fetchData();
+      fetchData()
     }
-  }, [id]);
+  }, [id])
 
   if (editVehicleData.isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (editVehicleData.isError) {
-    return <div>Error loading vehicle data</div>;
+    return <div>Error loading vehicle data</div>
   }
-
 
   const showSuccessToast = () => {
     toast.success('New vehicle successfully added!', {
-        icon: <Icon path={mdiAccountPlus} size={48} />,
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light", // TODO correct theme, if dark mode on
-        transition: Bounce,
-    });
-};
+      icon: <Icon path={mdiAccountPlus} size={48} />,
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light', // TODO correct theme, if dark mode on
+      transition: Bounce,
+    })
+  }
 
-  const vehicle : Vehicle = editVehicleData.vehicle;
+  const vehicle: Vehicle = editVehicleData.vehicle
   const handleSubmit = async (vehicleData: Vehicle) => {
+    console.log(JSON.stringify(vehicleData, null, 2))
     try {
-      setLoading(true);
-      const response = await editVehicleAsync(vehicleData);
+      setEditVehicleData({
+        vehicle: vehicle,
+        isLoading: true,
+        isError: false,
+      })
+      const response = await editVehicleAsync(vehicleData)
       if (response.status === 200) {
-        setLoading(false);
+        setEditVehicleData({
+          vehicle: vehicle,
+          isLoading: false,
+          isError: false,
+        })
         console.log('a vehicle is updated')
-        showSuccessToast();
-        // showSuccessToast();
+        showSuccessToast()
       } else {
         // handle other statuses
       }
-
     } catch (error) {
-      //setLoading(false);
-      console.log('a vehicle is NOT updated')
+      setEditVehicleData({
+        vehicle: vehicle,
+        isLoading: false,
+        isError: true,
+      })
+      console.log('a vehicle is NOT updated+++')
     }
   }
 
   return (
-    
     <>
       <Head>
         <title>{getPageTitle('Edited vehicle')}</title>
       </Head>
       <SectionMain>
-      <SectionTitleLineWithButton icon={mdiCar} title="Edit specific vehicle" main>
-      <Button
+        <SectionTitleLineWithButton icon={mdiCar} title="Edit specific vehicle" main>
+          <Button
             href={`/vehicles/${id}`}
             // target="_blank"
             icon={mdiCar}
@@ -144,9 +155,9 @@ const EditVehicle = () => {
             small
           />
         </SectionTitleLineWithButton>
-          <CardBox>
+        <CardBox>
           <Formik
-          initialValues={{
+            initialValues={{
               vehicleId: vehicle.vehicleId,
               model: vehicle.model,
               weightCapacity: vehicle.weightCapacity,
@@ -158,10 +169,10 @@ const EditVehicle = () => {
               costOfDelivery: vehicle.costOfDelivery,
               status: vehicle.status,
             }}
-             validationSchema={EditVehicleValidationSchema}
-             onSubmit={handleSubmit}>
-
-{({ errors, touched }) => (
+            validationSchema={EditVehicleValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched }) => (
               <Form className="flex flex-col flex-1">
                 <CardBoxComponentBody>
                   <div className="grid grid-cols-2 gap-6">
@@ -169,7 +180,7 @@ const EditVehicle = () => {
                       label="Model"
                       labelFor="model"
                       icons={[mdiAccount]}
-                      errors={[errors.model && touched.model ? errors.model : null]}                  
+                      errors={[errors.model && touched.model ? errors.model : null]}
                     >
                       <Field name="model" id="model" placeholder="Model" />
                     </FormField>
@@ -178,9 +189,17 @@ const EditVehicle = () => {
                       label="Weight Capacity"
                       labelFor="weightCapacity"
                       icons={[mdiMail]}
-                      errors={[errors.weightCapacity && touched.weightCapacity ? errors.weightCapacity : null]}
+                      errors={[
+                        errors.weightCapacity && touched.weightCapacity
+                          ? errors.weightCapacity
+                          : null,
+                      ]}
                     >
-                      <Field name="weightCapacity" id="weightCapacity" placeholder="Weight Capacity" />
+                      <Field
+                        name="weightCapacity"
+                        id="weightCapacity"
+                        placeholder="Weight Capacity"
+                      />
                     </FormField>
 
                     <FormField
@@ -189,7 +208,12 @@ const EditVehicle = () => {
                       icons={[mdiGasStation]}
                       errors={[errors.fuelType && touched.fuelType ? errors.fuelType : null]}
                     >
-                      <Field name="fuelType" id="fuelType" placeholder="Fuel Type" component="select">
+                      <Field
+                        name="fuelType"
+                        id="fuelType"
+                        placeholder="Fuel Type"
+                        component="select"
+                      >
                         <option value="">Please select fuel type</option>
                         <option value="ELECTRIC">Electric</option>
                         <option value="DIESEL">Diesel</option>
@@ -203,27 +227,51 @@ const EditVehicle = () => {
                       label="Range with Cargo"
                       labelFor="rangeWithCargo"
                       icons={[mdiMail]}
-                      errors={[errors.rangeWithCargo && touched.rangeWithCargo ? errors.rangeWithCargo : null]}
+                      errors={[
+                        errors.rangeWithCargo && touched.rangeWithCargo
+                          ? errors.rangeWithCargo
+                          : null,
+                      ]}
                     >
-                      <Field name="rangeWithCargo" id="rangeWithCargo" placeholder="Range with Cargo" />
+                      <Field
+                        name="rangeWithCargo"
+                        id="rangeWithCargo"
+                        placeholder="Range with Cargo"
+                      />
                     </FormField>
 
                     <FormField
                       label="Range without Cargo"
                       labelFor="rangeWithOutCargo"
                       icons={[mdiAccount]}
-                      errors={[errors.rangeWithOutCargo && touched.rangeWithOutCargo ? errors.rangeWithOutCargo : null]}
+                      errors={[
+                        errors.rangeWithOutCargo && touched.rangeWithOutCargo
+                          ? errors.rangeWithOutCargo
+                          : null,
+                      ]}
                     >
-                      <Field name="rangeWithOutCargo" id="rangeWithOutCargo" placeholder="Range without Cargo" />
+                      <Field
+                        name="rangeWithOutCargo"
+                        id="rangeWithOutCargo"
+                        placeholder="Range without Cargo"
+                      />
                     </FormField>
 
                     <FormField
                       label="Fuel Consumption with Cargo"
                       labelFor="fuelConsumptionWithCargo"
                       icons={[mdiMail]}
-                      errors={[errors.fuelConsumptionWithCargo && touched.fuelConsumptionWithCargo ? errors.fuelConsumptionWithCargo : null]}
+                      errors={[
+                        errors.fuelConsumptionWithCargo && touched.fuelConsumptionWithCargo
+                          ? errors.fuelConsumptionWithCargo
+                          : null,
+                      ]}
                     >
-                      <Field name="fuelConsumptionWithCargo" id="fuelConsumptionWithCargo" placeholder="Fuel Consumption with Cargo" />
+                      <Field
+                        name="fuelConsumptionWithCargo"
+                        id="fuelConsumptionWithCargo"
+                        placeholder="Fuel Consumption with Cargo"
+                      />
                     </FormField>
 
                     <FormField
@@ -239,9 +287,17 @@ const EditVehicle = () => {
                       label="Cost of Delivery"
                       labelFor="costOfDelivery"
                       icons={[mdiMail]}
-                      errors={[errors.costOfDelivery && touched.costOfDelivery ? errors.costOfDelivery : null]}
+                      errors={[
+                        errors.costOfDelivery && touched.costOfDelivery
+                          ? errors.costOfDelivery
+                          : null,
+                      ]}
                     >
-                      <Field name="costOfDelivery" id="costOfDelivery" placeholder="Cost of Delivery" />
+                      <Field
+                        name="costOfDelivery"
+                        id="costOfDelivery"
+                        placeholder="Cost of Delivery"
+                      />
                     </FormField>
 
                     <FormField
@@ -250,7 +306,7 @@ const EditVehicle = () => {
                       icons={[mdiAccount]}
                       errors={[errors.status && touched.status ? errors.status : null]}
                     >
-                       <Field name="status" id="status" placeholder="status" component="select">
+                      <Field name="status" id="status" placeholder="status" component="select">
                         <option value="">Please select status</option>
                         <option value="OK">OK</option>
                         <option value="IN_REPAIR">In repair</option>
@@ -260,27 +316,20 @@ const EditVehicle = () => {
                   </div>
                 </CardBoxComponentBody>
                 <CardBoxComponentFooter>
-                  <Divider/>
+                  <Divider />
                   <Buttons>
                     <Button color="info" type="submit" label="Submit" />
-      
+
                     <Button color="info" type="reset" label="Reset" outline />
                   </Buttons>
                 </CardBoxComponentFooter>
               </Form>
             )}
-              </Formik>
-              <ToastContainer />
-              </CardBox>  
-        
+          </Formik>
+          <ToastContainer />
+        </CardBox>
       </SectionMain>
     </>
-  );
-};
-export default EditVehicle;
-
-
-function setLoading(arg0: boolean) {
-  throw new Error('Function not implemented.')
+  )
 }
-
+export default EditVehicle
