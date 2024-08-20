@@ -1,4 +1,4 @@
-import { mdiAccountClock, mdiAccount, mdiTruckDelivery } from '@mdi/js';
+import { mdiAccountClock, mdiAccount, mdiTruckDelivery, mdiFileEditOutline, mdiPencilOutline, mdiDeleteForeverOutline } from '@mdi/js';
 import Button from 'components/Button';
 import Buttons from 'components/Buttons';
 import CardBoxModal from 'components/CardBox/Modal';
@@ -140,6 +140,8 @@ const Customer = () => {
               />
               <Button
                 color="info"
+                label="Show delivery adresses"
+                href={`/customers/${id}/deliveryaddresses`}//TODO
                 icon={mdiAccountClock}
                 outline={values.outline}
                 small={values.small}
@@ -148,8 +150,9 @@ const Customer = () => {
               />
               <Button
                 color="info"
+                label="Edit"
                 href={`/customers/${id}/edit`}//TODO
-                icon={mdiAccountClock}
+                icon={mdiPencilOutline}
                 outline={values.outline}
                 small={values.small}
                 roundedFull={values.rounded}
@@ -159,6 +162,7 @@ const Customer = () => {
                 color="danger"
                 label="Delete"
                 href={`/customers/${id}/delete`}
+                icon = {mdiDeleteForeverOutline}
                 outline={values.outline}
                 small={values.small}
                 roundedFull={values.rounded}
