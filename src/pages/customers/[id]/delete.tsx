@@ -69,6 +69,7 @@ const DeleteCustomer = () => {
 
   const handleCancelAction = () => {
     setIsModalInfoActive(false)
+    // router.push('/customers${id}'); // Redirects the user to the customers page when they cancel TODO
   }
 
   const modalSampleContents = (
