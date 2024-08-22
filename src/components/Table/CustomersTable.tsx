@@ -96,7 +96,7 @@ const CustomersTable = () => {
                         <th>Postal code</th>
                         <th>Address</th>
                         <th>Email</th>
-                        <th>Active/Noactive</th>
+                        <th>Active</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,7 +114,7 @@ const CustomersTable = () => {
                             <td>{customer.country}-{customer.postalCode}</td>
                             <td>{customer.legalAddress}</td>
                             <td>{customer.email}</td>
-                            <td>{customer.active}</td>
+                            <td>{customer.active ? "yes" : "no"}</td>
                         </tr>
                     ))}
                 </tbody>
