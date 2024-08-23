@@ -18,7 +18,7 @@ const DeleteVehicle = () => {
   const router = useRouter()
   const { id } = router.query
   const [isModalInfoActive, setIsModalInfoActive] = useState(true)
-  const showSuccessToast = (message) => {
+  const showSuccessToast = (message) => {   
     toast.success(message, {
       icon: <Icon path={mdiAccountPlus} size={48} />,
       position: "bottom-right",
@@ -59,12 +59,17 @@ const DeleteVehicle = () => {
   }
 
   //
-
   const handleDeleteAction = () => {
     deleteVehicle()
     setIsModalInfoActive(false)
   }
+   const backToVehicle=()=>
+   {
+    setTimeout(() => router.push(`/vehicles/${id}`))
+   }
+
   const handleCancelAction = () => {
+    backToVehicle()
     setIsModalInfoActive(false)
   }
   
@@ -112,3 +117,6 @@ const DeleteVehicle = () => {
 }
 
 export default DeleteVehicle
+
+
+
