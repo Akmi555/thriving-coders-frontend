@@ -11,6 +11,8 @@ import Buttons from 'components/Buttons';
 import FormField from 'components/Form/Field';
 import { getPageTitle } from 'src/config';
 
+import axios from 'axios';
+
 interface FormValues {
   firstName: string;
   lastName: string;
@@ -61,9 +63,18 @@ const PayCardPage: React.FC = () => {
               paymentMethod: 'visa',
             }}
             validationSchema={CardValidationSchema}
-            onSubmit={(values: FormValues) => {
-              alert(JSON.stringify(values, null, 2));
+            onSubmit={async (values: FormValues) => {
+              //alert(JSON.stringify(values, null, 2));
               // Handle form submission
+              try {
+                const response = await axios.post('http://localhost:4567/payments', values);  
+                alert(JSON.stringify(response.data, null, 2));
+              } catch (error) {
+                throw error.response.data;
+              }
+              
+
+
             }}>
             {({ errors, touched }) => (
               <Form>
