@@ -5,7 +5,7 @@ const deleteVehicleAsync = async (id) => {
   // TODO: обработать все статусы ответа 200, 404, 400, 500
 
   try {
-    const response = await axios.delete('http://localhost:4567/vehicles/' + id);
+    const response = await axios.delete('https://api.thriving-coders.com/vehicles/' + id);
     console.log('Vehicle deleted successfully:', response.data);
     return response;
   } catch (error) {

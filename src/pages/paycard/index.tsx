@@ -67,7 +67,7 @@ const PayCardPage: React.FC = () => {
               //alert(JSON.stringify(values, null, 2));
               // Handle form submission
               try {
-                const response = await axios.post('http://localhost:4567/payments', values);  
+                const response = await axios.post('https://api.thriving-coders.com/payments', values);  
                 alert(JSON.stringify(response.data, null, 2));
               } catch (error) {
                 throw error.response.data;

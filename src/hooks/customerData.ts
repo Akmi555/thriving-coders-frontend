@@ -8,7 +8,7 @@ export const fetchOneCustomer = async (id) => {
 
 // export const fetchOneCustomer = async (id: string | string[]) => {
     try {
-        const response = await fetcher('http://localhost:4567/customers/' + id);
+        const response = await fetcher('https://api.thriving-coders.com/customers/' + id);
         return {
             customer: response ?? null,
             isLoading: false,

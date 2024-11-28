@@ -1,6 +1,6 @@
 export const fetchDeliveryAddressesByCustomerId = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4567/customers/${id}/deliveryaddresses` + id);
+      const response = await fetch(`https://api.thriving-coders.com/customers/${id}/deliveryaddresses` + id);
       return {
         deliveryAddresses: response ?? [],
         isLoading: false,

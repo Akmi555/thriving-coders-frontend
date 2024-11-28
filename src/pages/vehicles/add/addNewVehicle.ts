@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const addNewVehicle = async (vehicleData) => {
   try {
-    const response = await axios.post('http://localhost:4567/vehicles', vehicleData);
+    const response = await axios.post('https://api.thriving-coders.com/vehicles', vehicleData);
     console.log('Vehicle added successfully:', response.data);
     return response;
   } catch (error) {
